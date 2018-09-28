@@ -19,3 +19,7 @@ class Sword: Weapon {
 class Potion: Weapon {
     
 }
+
+class None: Weapon {
+    // The character has no weapon - should he fight with his hands only
+}

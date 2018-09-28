@@ -11,11 +11,15 @@ import Foundation
 class Fighter {
     var fighterName: String
     var fighterLife = 0
-    var weapon: Weapon?
     var fighteraAnimal = [Animal]()
     
     init(fighterName: String){
         self.fighterName = fighterName
     }
     
+    func description() -> String {
+        return "My name is \(fighterName)"
+                + "\n  1. My life level: \(fighterLife)"
+                + "\n  2. I have got \(fighteraAnimal.count) " + (fighteraAnimal.count > 1 ? "animals" : "animal")
+    }
 }
