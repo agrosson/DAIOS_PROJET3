@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+class Fighter {
+    var fighterName: String
+    var fighterLife = 0
+    var weapon: Weapon?
+    var fighteraAnimal = [Animal]()
+    
+    init(fighterName: String){
+        self.fighterName = fighterName
+    }
+    
+}
