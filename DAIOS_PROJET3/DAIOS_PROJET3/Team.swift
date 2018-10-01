@@ -20,7 +20,6 @@ class Team {
        
     }
     
-    
     init(name : String){
         teamName = name
     }
