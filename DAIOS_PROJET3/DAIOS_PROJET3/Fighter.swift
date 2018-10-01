@@ -10,8 +10,9 @@ import Foundation
 
 class Fighter {
     var fighterName: String
-    var fighterLife = 0
+    var fighterLife = 10
     var fighterAnimal = [Animal]()
+    var fighterWeapon:Weapon?
     
     init(fighterName: String){
         self.fighterName = fighterName

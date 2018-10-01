@@ -11,7 +11,14 @@ import Foundation
 class Team {
     var teamName: String
     var teamMembers = [Fighter]()
-    var teamLife: Int?
+    var teamLife: Int {
+        get { var total = 0
+            for i in 0..<teamMembers.count {
+                total += teamMembers[i].fighterLife
+            }
+            return total}
+       
+    }
     
     
     init(name : String){
@@ -19,7 +26,7 @@ class Team {
     }
     
     func presentation() -> String {
-        var presentationText = "My team \(teamName) has \(teamMembers.count) " + (teamMembers.count > 1 ? "members" : "member") + " and " + (teamMembers.count > 1 ? "they" : "he") + " will present " + (teamMembers.count > 1 ? "themselves !" : "himself !")
+        var presentationText = "My team \(teamName) has \(teamMembers.count) " + (teamMembers.count > 1 ? "members" : "member") + ". The total life of the team is \(teamLife) and " + (teamMembers.count > 1 ? "they" : "he") + " will present " + (teamMembers.count > 1 ? "themselves !" : "himself !")
         for fighter in teamMembers {
             presentationText += "\n \(fighter.description())"
             
