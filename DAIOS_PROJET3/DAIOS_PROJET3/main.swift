@@ -10,8 +10,8 @@ import Foundation
 
 //Test code
 
+var game = Game()
 
-print("Test")
 
 var monEqui = Team(name: "LoulouTeam")
 print(monEqui.presentation())
