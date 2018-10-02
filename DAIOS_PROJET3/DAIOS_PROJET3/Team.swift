@@ -25,7 +25,7 @@ class Team {
     }
     
     func presentation() -> String {
-        var presentationText = "My team \(teamName) has \(teamMembers.count) " + (teamMembers.count > 1 ? "members" : "member") + ". The total life of the team is \(teamLife) and " + (teamMembers.count > 1 ? "they" : "he") + " will present " + (teamMembers.count > 1 ? "themselves !" : "himself !")
+        var presentationText = "The team \(teamName) has \(teamMembers.count) " + (teamMembers.count > 1 ? "members" : "member") + ". The total life of the team is \(teamLife) and " + (teamMembers.count > 1 ? "they" : "he") + " will present " + (teamMembers.count > 1 ? "themselves !" : "himself !")
         for fighter in teamMembers {
             presentationText += "\n \(fighter.description())"
             

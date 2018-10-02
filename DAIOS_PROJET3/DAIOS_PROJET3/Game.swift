@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import Darwin
+import Darwin // framework to use sleep()
 
 class Game {
     // Array that lists all the teams of the Game
@@ -49,6 +49,14 @@ class Game {
         // Adds the team to list of team and name of the team to the list of teamNames to enable tests for unique names
         listOfTeamName.append(team2.teamName)
         listOfTeam.append(team2)
+        
+        // simul attack
+        print("""
+                Now things are getting harder
+        Please be prepared for a cruel fight !!!
+        Be the best, and stay alive !!
+        """)
+         attack()
     }
     
     // Function that prints a welcome message
@@ -153,10 +161,56 @@ class Game {
     
     func attack(){
         // for loop with elements from listOfTeam
-        
+        for i in 0...1 {
+            for _ in 1...3{
+                print("")
+            }
+            // Both team presents themselves
+            print(" Here is the team that attacks")
+            print("")
+            print(listOfTeam[( i == 1 ? 1 : 0)].presentation())
+            print("")
+            print(" Here is the team that is being attacked")
+            print("")
+            print(listOfTeam[( i == 0 ? 1 : 0)].presentation())
+            print("")
+            let attacker = chooseFighterForAttack(ofTeam: ( i == 1 ? 1 : 0))
+            for _ in 1...3{
+                print("")
+            }
+            print("Voci l'heureux élu !!!")
+            print(attacker.description())
+            
+        }
         // Message for team presentation
         // Both team presents themselves
         // first player choose its Fighter
+//        for _ in 1...5{
+//            print("simul of attack !!!!")
+//        }
+//
+//        for _ in 1...5{
+//            print("")
+//        }
+//        print("")
+//        listOfTeam[0].teamMembers[0].fighterWeapon = Sword()
+//        print(listOfTeam[1].teamMembers[1].fighterWeapon?.damage ?? 0)
+//
+//        print(listOfTeam[0].presentation())
+//        print(listOfTeam[1].presentation())
+//        for _ in 1...3{
+//            print("simul of impact !!!!")
+//        }
+//        let impact =   listOfTeam[0].teamMembers[0].fighterWeapon!.damage
+//
+//        listOfTeam[1].teamMembers[0].fighterLife -= impact
+//
+//        for _ in 1...5{
+//            print("simul of attack : result !!!!")
+//        }
+//        print("the impact will be \(impact)")
+//        print(listOfTeam[1].presentation())
+//
         // First player choose its opponent
         // random trunck
         // bonus : send animal if any
@@ -164,6 +218,29 @@ class Game {
         // Sum up
         
         
+        
+    }
+    
+    private func chooseFighterForAttack(ofTeam: Int) -> Fighter {
+        let chosenFighter: Fighter
+        var choice = ""
+        var listOfChoice = [String]()
+        repeat{
+            var counter = 1
+            print("\(listOfTeam[ofTeam].teamName): What is your selected fighter?")
+            for fighter in listOfTeam[ofTeam].teamMembers {
+                print("\(counter). \(fighter.fighterName)")
+                listOfChoice.append("\(counter)")
+                counter += 1
+            }
+            if let answer = readLine(){
+                choice = answer
+            }
+        } while !listOfChoice.contains(choice)
+    
+        chosenFighter = listOfTeam[ofTeam].teamMembers[Int(choice)!-1]
+        
+        return chosenFighter
         
     }
     
