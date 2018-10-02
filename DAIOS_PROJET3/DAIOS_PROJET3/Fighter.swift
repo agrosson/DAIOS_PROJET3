@@ -17,6 +17,7 @@ class Fighter {
     var fighterLife = 10
     var fighterAnimal = [Animal]()
     var fighterWeapon:Weapon?
+    var fighterNatureType:NatureType?
     
     init(fighterName: String){
         self.fighterName = fighterName
@@ -38,6 +39,7 @@ class Warrior: Fighter {
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = 100
+        fighterNatureType = .earth
     }
     
     override func description() -> String {
@@ -48,7 +50,8 @@ class Warrior: Fighter {
 class Giant: Fighter {
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        self.fighterLife = 200
+        fighterLife = 200
+        fighterNatureType = .earth
     }
 
     override func description() -> String {
@@ -59,7 +62,8 @@ class Giant: Fighter {
 class Dwarf: Fighter {
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        self.fighterLife = 80
+        fighterLife = 80
+        fighterNatureType = .earth
     }
 
     override func description() -> String {
@@ -71,7 +75,8 @@ class Dwarf: Fighter {
 class Elf: Fighter {
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        self.fighterLife = 120
+        fighterLife = 120
+        fighterNatureType = .air
     }
 
     override func description() -> String {
@@ -84,6 +89,7 @@ class Witch: Fighter {
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = 150
+        fighterNatureType = .water
     }
 
     override func description() -> String {
@@ -95,10 +101,15 @@ class Wizard: Fighter {
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = 100
+        fighterNatureType = .water
     }
 
     override func description() -> String {
         return "I am a wizard. "
             + super.description()
     }
+}
+
+enum NatureType {
+    case earth, air, water
 }

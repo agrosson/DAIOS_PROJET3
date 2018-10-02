@@ -10,40 +10,46 @@ import Foundation
 
 class Weapon {
     var damage = 0
+    var weaponNatureType: NatureType?
 }
 
 class Sword: Weapon {
     override init() {
         super.init()
-        self.damage = 10
+        damage = 10
+        weaponNatureType = .earth
     }
 }
 
 class Knife: Weapon {
     override init() {
         super.init()
-        self.damage = 5
+        damage = 5
+        weaponNatureType = .earth
     }
 }
 
 class Axe: Weapon {
     override init() {
         super.init()
-        self.damage = 15
+        damage = 15
+        weaponNatureType = .earth
     }
 }
 
 class Arrow: Weapon {
     override init() {
         super.init()
-        self.damage = 12
+        damage = 12
+        weaponNatureType = .air
     }
 }
 
 class Filter: Weapon {
     override init() {
         super.init()
-        self.damage = 7
+        damage = 7
+        weaponNatureType = .water
     }
 }
 
@@ -51,6 +57,7 @@ class None: Weapon {
     // The character has no weapon - should he fight with his hands only
     override init() {
         super.init()
-        self.damage = 2
+        damage = 2
+        weaponNatureType = .water
     }
 }

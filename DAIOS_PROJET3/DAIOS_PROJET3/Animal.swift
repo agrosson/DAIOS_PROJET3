@@ -15,6 +15,7 @@ import Foundation
 class Animal {
     var animalName: String
     var animalType: AnimalType
+    var weaponTypeNature: NatureType
     var animalDamage: Int {
         get { return animalType.rawValue}
     }
@@ -22,6 +23,12 @@ class Animal {
     init(animalName: String, animalType : AnimalType) {
         self.animalName = animalName
         self.animalType = animalType
+        switch animalType {
+        case .dog: weaponTypeNature = .earth
+        case .snake: weaponTypeNature = .earth
+        case .dragon: weaponTypeNature = .air
+        case .horse: weaponTypeNature = .earth
+        }
     }
 }
 //======================
