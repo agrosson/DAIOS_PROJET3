@@ -14,7 +14,7 @@ import Foundation
 
 class Fighter {
     var fighterName: String
-    var fighterLife = 10
+    var fighterLife = 80
     var fighterAnimal = [Animal]()
     var fighterWeapon:Weapon?
     var fighterNatureType:NatureType?
@@ -26,8 +26,8 @@ class Fighter {
     // Function that return text which describes features of the Fighter
     func description() -> String {
         return "My name is \(fighterName)"
-                + "\n  1. My life level: \(fighterLife)"
-                + "\n  2. I have got \(fighterAnimal.count) " + (fighterAnimal.count > 1 ? "animals" : "animal")
+            + "\n  1. My life level: \(fighterLife)"
+            + "\n  2. I have got \(fighterAnimal.count) " + (fighterAnimal.count > 1 ? "animals" : "animal")
     }
 }
 
@@ -36,36 +36,39 @@ class Fighter {
 //======================
 
 class Warrior: Fighter {
+    let warriorMaxLife = 100
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        fighterLife = 100
+        fighterLife = warriorMaxLife
         fighterNatureType = .earth
     }
     
     override func description() -> String {
         return "I am a warior. "
-                + super.description()
+            + super.description()
     }
 }
 class Giant: Fighter {
+    let giantMaxLife = 200
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        fighterLife = 200
+        fighterLife = giantMaxLife
         fighterNatureType = .earth
     }
-
+    
     override func description() -> String {
         return "I am a giant. "
             + super.description()
     }
 }
 class Dwarf: Fighter {
+    let dwarfMaxLife = 80
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        fighterLife = 80
+        fighterLife = dwarfMaxLife
         fighterNatureType = .earth
     }
-
+    
     override func description() -> String {
         return "I am a dwarf. "
             + super.description()
@@ -73,12 +76,13 @@ class Dwarf: Fighter {
 }
 
 class Elf: Fighter {
+    let elfMaxLife = 120
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        fighterLife = 120
+        fighterLife = elfMaxLife
         fighterNatureType = .air
     }
-
+    
     override func description() -> String {
         return "I am an elf. "
             + super.description()
@@ -86,24 +90,26 @@ class Elf: Fighter {
 }
 
 class Witch: Fighter {
+    let witchMaxLife = 150
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        fighterLife = 150
+        fighterLife = witchMaxLife
         fighterNatureType = .water
     }
-
+    
     override func description() -> String {
         return "I am a witch. "
             + super.description()
     }
 }
 class Wizard: Fighter {
+    let wizardMaxLife = 100
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        fighterLife = 100
+        fighterLife = wizardMaxLife
         fighterNatureType = .water
     }
-
+    
     override func description() -> String {
         return "I am a wizard. "
             + super.description()

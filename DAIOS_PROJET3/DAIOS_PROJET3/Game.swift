@@ -150,4 +150,27 @@ class Game {
         // returns the Fighter created with character type
         return newFighter
     }
+    
+    func attack(){
+        // for loop with elements from listOfTeam
+        
+        // Message for team presentation
+        // Both team presents themselves
+        // first player choose its Fighter
+        // First player choose its opponent
+        // random trunck
+        // bonus : send animal if any
+        // attack
+        // Sum up
+        
+        
+        
+    }
+    
+    // to be created: an event between a attack cycle
+    // catch an animal : add to list animal
+    // betrayal : change team if not alone in the team
+    // storm: remove lives
+    // food : add lives +10
+    // drugs : add lives +20 
 }
