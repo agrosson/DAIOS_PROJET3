@@ -14,7 +14,7 @@ import Foundation
 
 class Fighter {
     var fighterName: String
-    var fighterLife = 80
+    var fighterLife = 8
     var fighterAnimal = [Animal]()
     var fighterWeapon:Weapon?
     var fighterNatureType:NatureType?
@@ -36,7 +36,7 @@ class Fighter {
 //======================
 
 class Warrior: Fighter {
-    let warriorMaxLife = 100
+    let warriorMaxLife = 10
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = warriorMaxLife
@@ -49,7 +49,7 @@ class Warrior: Fighter {
     }
 }
 class Giant: Fighter {
-    let giantMaxLife = 200
+    let giantMaxLife = 20
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = giantMaxLife
@@ -62,7 +62,7 @@ class Giant: Fighter {
     }
 }
 class Dwarf: Fighter {
-    let dwarfMaxLife = 80
+    let dwarfMaxLife = 8
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = dwarfMaxLife
@@ -76,7 +76,7 @@ class Dwarf: Fighter {
 }
 
 class Elf: Fighter {
-    let elfMaxLife = 120
+    let elfMaxLife = 12
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = elfMaxLife
@@ -90,7 +90,7 @@ class Elf: Fighter {
 }
 
 class Witch: Fighter {
-    let witchMaxLife = 150
+    let witchMaxLife = 15
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = witchMaxLife
@@ -103,7 +103,7 @@ class Witch: Fighter {
     }
 }
 class Wizard: Fighter {
-    let wizardMaxLife = 100
+    let wizardMaxLife = 10
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = wizardMaxLife

@@ -16,7 +16,9 @@ class Game {
     var listOfTeamName = [String]()
     // Array that lists all the fighters of the Game, check if Fighter name Unique
     var listOfFighterName = [String]()
-    
+    let listOfWeapon = [Sword(),Axe(),Knife(),Arrow(),Filter(), None()]
+    // Variable that tracks the index of the Fighter in the TeamMembers
+    var indexOfAttacked = 0
     
     init() {
         gameStart()
@@ -26,6 +28,8 @@ class Game {
     internal func gameStart() {
         // Prints a welcome message
         welcomeMessage()
+        pauseTapKeyboard()
+
         // CountDown
         countDown()
         // Creates the first team
@@ -38,7 +42,9 @@ class Game {
         // Adds the team to list of team and name of the team to the list of teamNames to enable tests for unique names
         listOfTeamName.append(team1.teamName)
         listOfTeam.append(team1)
-       // Creates the second team
+        pauseTapKeyboard()
+        
+        // Creates the second team
         print("")
         print("Here is the team 2:")
         let team2 = createTeam()
@@ -56,8 +62,33 @@ class Game {
         Please be prepared for a cruel fight !!!
         Be the best, and stay alive !!
         """)
-         attack()
+        repeat{
+            attack()
+        } while (listOfTeam[0].teamLife > 0 && listOfTeam[1].teamLife > 0)
+        
+        anotherGameMaybe()
+        
     }
+    
+    internal func anotherGameMaybe(){
+        var newGame = ""
+        repeat{
+            print("Do you want to play again?"
+                + "\n1. Yes"
+                + "\n2. No"
+            )
+            if let answer = readLine(){
+                newGame = answer
+            }
+        } while newGame != "1"  && newGame != "2"
+        
+        switch newGame {
+        case "1": game = Game()
+        
+        default: print("Goodbye")
+        }
+    }
+
     
     // Function that prints a welcome message
     internal func welcomeMessage() {
@@ -89,11 +120,11 @@ class Game {
         
         // Gets the name of the team from user - check if name is unique
         repeat {
-        print("What is the name of your Team?")
-        if let name = readLine(){
-            nameTeam = name.uppercased()
+            print("What is the name of your Team?")
+            if let name = readLine(){
+                nameTeam = name.uppercased()
             }}
-        while listOfTeamName.contains(nameTeam)
+            while listOfTeamName.contains(nameTeam)
         
         // creates the team
         let teamInCreation = Team(name: nameTeam)
@@ -116,11 +147,11 @@ class Game {
         
         // Gets the name of the Fighter from user - check if name is unique
         repeat{
-        print("What is the name of your new member?")
-        if let name = readLine(){
-            nameMember = name.uppercased()
+            print("What is the name of your new member?")
+            if let name = readLine(){
+                nameMember = name.uppercased()
             }}
-        while listOfFighterName.contains(nameMember)
+            while listOfFighterName.contains(nameMember)
         
         // creates the Fighter
         var newFighter = Fighter(fighterName: nameMember)
@@ -160,75 +191,79 @@ class Game {
     }
     
     func attack(){
+        
         // for loop with elements from listOfTeam
         for i in 0...1 {
-            for _ in 1...3{
-                print("")
-            }
+            pauseTapKeyboard()
+            
             // Both team presents themselves
-            print(" Here is the team that attacks")
+            print(" THE TEAM \(listOfTeam[( i == 1 ? 1 : 0)].teamName) IS ATTACKING !!!!")
             print("")
             print(listOfTeam[( i == 1 ? 1 : 0)].presentation())
             print("")
-            print(" Here is the team that is being attacked")
+            print(" THE TAEM \(listOfTeam[( i == 0 ? 1 : 0)].teamName) IS BEING ATTACKED !!!!")
             print("")
+        
             print(listOfTeam[( i == 0 ? 1 : 0)].presentation())
             print("")
-            let attacker = chooseFighterForAttack(ofTeam: ( i == 1 ? 1 : 0))
+            pauseTapKeyboard()
+            
+            let attacking = chooseFighterForAttack(ofTeamAttacker: ( i == 1 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
             for _ in 1...3{
                 print("")
             }
-            print("Voci l'heureux élu !!!")
-            print(attacker.description())
+            print("Here is the Attacker !!!")
+            print(attacking.description())
+            pauseTapKeyboard()
+            print("Now chose your opponent !!")
+            let attacked = chooseFighterForAttack(ofTeamAttacker: ( i == 0 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
+            for _ in 1...3{
+                print("")
+            }
+            print("Here is the Attacked fighter !!!")
+            print(attacked.description())
             
+            for _ in 1...3{
+                print("The fight is on !!!")
+            }
+            pauseTapKeyboard()
+            print("Here is the the result")
+            
+            // random weapon
+            let randomWeapon = listOfWeapon.randomElement()
+            
+            print("The attacker gets a \(randomWeapon!.weaponName)")
+            for _ in 1...3{
+                print("")
+            }
+            attacking.fighterWeapon = randomWeapon
+            attacked.fighterLife = max(attacked.fighterLife-attacking.fighterWeapon!.damage, 0)
+            if attacked.fighterLife < 1 {
+                print("Oh my Good !! \(attacked.fighterName) is dead !!")
+                listOfTeam[( i == 0 ? 1 : 0)].teamMembers.remove(at: indexOfAttacked)
+                if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == 0 {
+                    print("End of game")
+                    break
+                }
+            }
+            print("Here is the damages")
+            print(attacked.description())
         }
-        // Message for team presentation
-        // Both team presents themselves
-        // first player choose its Fighter
-//        for _ in 1...5{
-//            print("simul of attack !!!!")
-//        }
-//
-//        for _ in 1...5{
-//            print("")
-//        }
-//        print("")
-//        listOfTeam[0].teamMembers[0].fighterWeapon = Sword()
-//        print(listOfTeam[1].teamMembers[1].fighterWeapon?.damage ?? 0)
-//
-//        print(listOfTeam[0].presentation())
-//        print(listOfTeam[1].presentation())
-//        for _ in 1...3{
-//            print("simul of impact !!!!")
-//        }
-//        let impact =   listOfTeam[0].teamMembers[0].fighterWeapon!.damage
-//
-//        listOfTeam[1].teamMembers[0].fighterLife -= impact
-//
-//        for _ in 1...5{
-//            print("simul of attack : result !!!!")
-//        }
-//        print("the impact will be \(impact)")
-//        print(listOfTeam[1].presentation())
-//
-        // First player choose its opponent
-        // random trunck
-        // bonus : send animal if any
-        // attack
-        // Sum up
-        
-        
-        
     }
+    // First player choose its opponent
+    // random trunck
+    // bonus : send animal if any
+    // attack
+    // Sum up
     
-    private func chooseFighterForAttack(ofTeam: Int) -> Fighter {
+    private func chooseFighterForAttack(ofTeamAttacker: Int, teamNameForAction: Int) -> Fighter {
         let chosenFighter: Fighter
         var choice = ""
         var listOfChoice = [String]()
         repeat{
             var counter = 1
-            print("\(listOfTeam[ofTeam].teamName): What is your selected fighter?")
-            for fighter in listOfTeam[ofTeam].teamMembers {
+            print("\(listOfTeam[teamNameForAction].teamName): What is your selected fighter?")
+            for fighter in listOfTeam[ofTeamAttacker].teamMembers {
                 print("\(counter). \(fighter.fighterName)")
                 listOfChoice.append("\(counter)")
                 counter += 1
@@ -237,11 +272,21 @@ class Game {
                 choice = answer
             }
         } while !listOfChoice.contains(choice)
-    
-        chosenFighter = listOfTeam[ofTeam].teamMembers[Int(choice)!-1]
+        
+        chosenFighter = listOfTeam[ofTeamAttacker].teamMembers[Int(choice)!-1]
+        indexOfAttacked = Int(choice)!-1
         
         return chosenFighter
-        
+    }
+    
+    func pauseTapKeyboard(){
+        for _ in 1...3{
+            print("")
+        }
+        print("Tap any key to continue")
+        if readLine() != nil {
+            print("")
+        }
     }
     
     // to be created: an event between a attack cycle
