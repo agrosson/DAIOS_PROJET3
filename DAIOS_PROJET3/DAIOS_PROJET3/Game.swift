@@ -32,30 +32,10 @@ class Game {
 
         // CountDown
         countDown()
-        // Creates the first team
-        print("")
-        print("Here is the team 1:")
-        let team1 = createTeam()
-        // Makes a presentation of the first team
-        print("")
-        print(team1.presentation())
-        // Adds the team to list of team and name of the team to the list of teamNames to enable tests for unique names
-        listOfTeamName.append(team1.teamName)
-        listOfTeam.append(team1)
-        pauseTapKeyboard()
         
-        // Creates the second team
-        print("")
-        print("Here is the team 2:")
-        let team2 = createTeam()
-        print("")
-        // Make a presentation of the second team
-        print(team2.presentation())
-        print("")
-        // Adds the team to list of team and name of the team to the list of teamNames to enable tests for unique names
-        listOfTeamName.append(team2.teamName)
-        listOfTeam.append(team2)
-        
+        // Creates the teams
+       teamCreationCycle()
+    
         // simul attack
         print("""
                 Now things are getting harder
@@ -68,6 +48,32 @@ class Game {
         
         anotherGameMaybe()
         
+    }
+    
+    internal func teamCreationCycle(){
+        print("")
+        print("Here is the team 1:")
+        let team1 = createTeam()
+        // Makes a presentation of the first team
+        print("")
+        print(team1.presentation())
+        appendTeam(team: team1)
+        
+        // Creates the second team
+        print("")
+        print("Here is the team 2:")
+        let team2 = createTeam()
+        print("")
+        // Make a presentation of the second team
+        print(team2.presentation())
+        appendTeam(team: team2)
+    }
+    
+    internal func appendTeam(team : Team) {
+        // Adds the team to list of team and name of the team to the list of teamNames to enable tests for unique names
+        listOfTeamName.append(team.teamName)
+        listOfTeam.append(team)
+        pauseTapKeyboard()
     }
     
     internal func anotherGameMaybe(){
@@ -141,6 +147,7 @@ class Game {
         // returns the created team
         return teamInCreation
     }
+    
     // Function that creates a Fighter
     internal func createFighter() -> Fighter {
         
@@ -203,7 +210,7 @@ class Game {
             print("")
             print(listOfTeam[( i == 1 ? 1 : 0)].presentation())
             print("")
-            print(" THE TAEM \(listOfTeam[( i == 0 ? 1 : 0)].teamName) IS BEING ATTACKED !!!!")
+            print(" THE TEAM \(listOfTeam[( i == 0 ? 1 : 0)].teamName) IS BEING ATTACKED !!!!")
             print("")
         
             print(listOfTeam[( i == 0 ? 1 : 0)].presentation())
@@ -290,8 +297,6 @@ class Game {
             print("")
         }
     }
-    // function that removes first or last whitespace
-    
     
     // to be created: an event between a attack cycle
     // catch an animal : add to list animal

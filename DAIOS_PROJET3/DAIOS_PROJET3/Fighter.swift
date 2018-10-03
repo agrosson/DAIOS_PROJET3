@@ -44,7 +44,7 @@ class Warrior: Fighter {
     }
     
     override func description() -> String {
-        return "I am a warior. "
+        return "Hello, I am a warior. "
             + super.description()
     }
 }
@@ -57,7 +57,7 @@ class Giant: Fighter {
     }
     
     override func description() -> String {
-        return "I am a giant. "
+        return "Hello, I am a giant. "
             + super.description()
     }
 }
@@ -70,7 +70,7 @@ class Dwarf: Fighter {
     }
     
     override func description() -> String {
-        return "I am a dwarf. "
+        return "Hello, I am a dwarf. "
             + super.description()
     }
 }
@@ -84,7 +84,7 @@ class Elf: Fighter {
     }
     
     override func description() -> String {
-        return "I am an elf. "
+        return "Hello, I am an elf. "
             + super.description()
     }
 }
@@ -98,7 +98,7 @@ class Witch: Fighter {
     }
     
     override func description() -> String {
-        return "I am a witch. "
+        return "Hello, I am a witch. "
             + super.description()
     }
 }
@@ -111,7 +111,7 @@ class Wizard: Fighter {
     }
     
     override func description() -> String {
-        return "I am a wizard. "
+        return "Hello, I am a wizard. "
             + super.description()
     }
 }
