@@ -123,8 +123,9 @@ class Game {
             print("What is the name of your Team?")
             if let name = readLine(){
                 nameTeam = name.uppercased()
+                nameTeam.removeFirstAndLastWhitespace()
             }}
-            while listOfTeamName.contains(nameTeam)
+            while listOfTeamName.contains(nameTeam) || nameTeam == ""
         
         // creates the team
         let teamInCreation = Team(name: nameTeam)
@@ -150,8 +151,9 @@ class Game {
             print("What is the name of your new member?")
             if let name = readLine(){
                 nameMember = name.uppercased()
+                nameMember.removeFirstAndLastWhitespace()
             }}
-            while listOfFighterName.contains(nameMember)
+            while listOfFighterName.contains(nameMember) || nameMember == ""
         
         // creates the Fighter
         var newFighter = Fighter(fighterName: nameMember)
@@ -283,11 +285,13 @@ class Game {
         for _ in 1...3{
             print("")
         }
-        print("Tap any key to continue")
+        print("Tap enter key to continue")
         if readLine() != nil {
             print("")
         }
     }
+    // function that removes first or last whitespace
+    
     
     // to be created: an event between a attack cycle
     // catch an animal : add to list animal
