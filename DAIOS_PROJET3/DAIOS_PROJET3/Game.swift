@@ -206,53 +206,69 @@ class Game {
             pauseTapKeyboard()
             
             let attacking = chooseFighterForAttack(ofTeamAttacker: ( i == 1 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
-            for _ in 1...3{
-                print("")
+            
+            
+            
+            // Here : let a test to see if Wizard is choosen
+            
+            
+            // do that if Wizard choosen
+            if attacking.isAWizard {
+                // do something mister Wizard
             }
-            print("Here is the Attacker !!!")
-            print(attacking.description())
-            pauseTapKeyboard()
-            print("Now chose your opponent !!")
-            // teamNameForAction is turn into ( i == 1 ? 1 : 0)) because it is the attacker that is choosing the opponent from the opponent team ( i == 0 ? 1 : 0)
-            let attacked = chooseFighterForAttack(ofTeamAttacker: ( i == 0 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
-            for _ in 1...3{
-                print("")
-            }
-            print("Here is the Attacked fighter !!!")
-            print(attacked.description())
-            
-            for _ in 1...3{
-                print("The fight is on !!!")
-            }
-            pauseTapKeyboard()
-            print("Here is the the result")
-            
-            // random weapon
-            let randomWeapon = listOfWeapon.randomElement()
-            
-            print("The attacker gets a \(randomWeapon!.weaponName)")
-            for _ in 1...3{
-                print("")
-            }
-            attacking.fighterWeapon = randomWeapon!
-            
-            // calculate impact of attack
-            attacked.fighterLife = max(attacked.fighterLife-attacking.fighterWeapon.damage, 0)
-            
-            //tests
-            if attacked.fighterLife < 1 {
-                // Test on fighterLife : dead (remove from team)
-                print("Oh my Good !! \(attacked.fighterName) is dead !!")
-                listOfTeam[( i == 0 ? 1 : 0)].teamMembers.remove(at: indexOfAttacked)
-                // Test on Team : if no member, the game is over
-                if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == 0 {
-                    print("End of game. All members of team \(listOfTeam[( i == 0 ? 1 : 0)].teamName) are dead now."
-                        + "\n team \(listOfTeam[( i == 1 ? 1 : 0)].teamName) wins !!! ")
-                    break
+            else {
+                // do that if not Wizard choosen
+                
+                for _ in 1...3{
+                    print("")
                 }
+                print("Here is the Attacker !!!")
+                print(attacking.description())
+                pauseTapKeyboard()
+                print("Now chose your opponent !!")
+                // teamNameForAction is turn into ( i == 1 ? 1 : 0)) because it is the attacker that is choosing the opponent from the opponent team ( i == 0 ? 1 : 0)
+                let attacked = chooseFighterForAttack(ofTeamAttacker: ( i == 0 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
+                for _ in 1...3{
+                    print("")
+                }
+                print("Here is the Attacked fighter !!!")
+                print(attacked.description())
+                
+                for _ in 1...3{
+                    print("The fight is on !!!")
+                }
+                pauseTapKeyboard()
+                print("Here is the the result")
+                
+                // random weapon
+                let randomWeapon = listOfWeapon.randomElement()
+                
+                print("The attacker gets a \(randomWeapon!.weaponName)")
+                for _ in 1...3{
+                    print("")
+                }
+                attacking.fighterWeapon = randomWeapon!
+                
+                // calculate impact of attack
+                attacked.fighterLife = max(attacked.fighterLife-attacking.fighterWeapon.damage, 0)
+                
+                //tests
+                if attacked.fighterLife < 1 {
+                    // Test on fighterLife : dead (remove from team)
+                    print("Oh my Good !! \(attacked.fighterName) is dead !!")
+                    listOfTeam[( i == 0 ? 1 : 0)].teamMembers.remove(at: indexOfAttacked)
+                    // Test on Team : if no member, the game is over
+                    if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == 0 {
+                        print("End of game. All members of team \(listOfTeam[( i == 0 ? 1 : 0)].teamName) are dead now."
+                            + "\n team \(listOfTeam[( i == 1 ? 1 : 0)].teamName) wins !!! ")
+                        break
+                    }
+                }
+                print("Here are the damages on the attacked fighter: ")
+                print(attacked.description())
+                
             }
-            print("Here are the damages on the attacked fighter: ")
-            print(attacked.description())
+
         }
     }
     // First player choose its opponent

@@ -18,6 +18,7 @@ class Fighter {
     var fighterAnimal = [Animal]()
     var fighterWeapon:Weapon = None()
     var fighterNatureType:NatureType?
+    var isAWizard = false
     
     init(fighterName: String){
         self.fighterName = fighterName

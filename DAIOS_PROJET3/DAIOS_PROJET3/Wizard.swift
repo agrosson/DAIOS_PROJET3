@@ -16,9 +16,11 @@ class Wizard: Fighter {
     let wizardMaxLife = 10
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
+        isAWizard = true
         fighterLife = wizardMaxLife
         // fighterWeapon = Potion() à créer
         fighterNatureType = .water
+        
     }
     
     override func description() -> String {
