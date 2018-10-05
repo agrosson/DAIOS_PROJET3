@@ -26,7 +26,7 @@ class Fighter {
     // Function that return text which describes features of the Fighter
     func description() -> String {
         return "My name is \(fighterName)"
-            + "\n  1. My life level: \(fighterLife)"
+            + "\n  1. My life level:" + ( fighterLife == 0 ? " \(fighterLife), I am dead! See you in Heaven !!" : " \(fighterLife)")
             + "\n  2. I have got \(fighterAnimal.count) " + (fighterAnimal.count > 1 ? "animals" : "animal")
     }
 }

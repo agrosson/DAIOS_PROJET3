@@ -11,21 +11,21 @@ import Darwin // framework to use sleep()
 
 class Game {
     // Array that lists all the teams of the Game
-    var listOfTeam = [Team]()
+    private var listOfTeam = [Team]()
     // Array that lists all the fighters of the Game, check if Team name Unique
-    var listOfTeamName = [String]()
+    private var listOfTeamName = [String]()
     // Array that lists all the fighters of the Game, check if Fighter name Unique
-    var listOfFighterName = [String]()
-    let listOfWeapon = [Sword(),Axe(),Knife(),Arrow(),Filter(), None()]
+    private var listOfFighterName = [String]()
+    private let listOfWeapon = [Sword(),Axe(),Knife(),Arrow(),Filter(), None()]
     // Variable that tracks the index of the Fighter in the TeamMembers
-    var indexOfAttacked = 0
+    private var indexOfAttacked = 0
     
     init() {
         gameStart()
     }
     
     // Function that launches the game with execution of several functions
-    internal func gameStart() {
+    private func gameStart() {
         // Prints a welcome message
         welcomeMessage()
         pauseTapKeyboard()
@@ -50,7 +50,8 @@ class Game {
         
     }
     
-    internal func teamCreationCycle(){
+    private func teamCreationCycle(){
+        // Create the first team
         print("")
         print("Here is the team 1:")
         let team1 = createTeam()
@@ -69,35 +70,18 @@ class Game {
         appendTeam(team: team2)
     }
     
-    internal func appendTeam(team : Team) {
+    private func appendTeam(team : Team) {
         // Adds the team to list of team and name of the team to the list of teamNames to enable tests for unique names
         listOfTeamName.append(team.teamName)
         listOfTeam.append(team)
         pauseTapKeyboard()
     }
     
-    internal func anotherGameMaybe(){
-        var newGame = ""
-        repeat{
-            print("Do you want to play again?"
-                + "\n1. Yes"
-                + "\n2. No"
-            )
-            if let answer = readLine(){
-                newGame = answer
-            }
-        } while newGame != "1"  && newGame != "2"
-        
-        switch newGame {
-        case "1": game = Game()
-        
-        default: print("Goodbye")
-        }
-    }
+   
 
     
     // Function that prints a welcome message
-    internal func welcomeMessage() {
+    private func welcomeMessage() {
         print("""
         Welcome to this brand new game.
         Be ready to fight !!
@@ -107,20 +91,20 @@ class Game {
     }
     
     // Fucntion that creates a countDown before the game is launched
-    internal func countDown() {
+    private func countDown() {
         for i in 1...5{
-            print("")
             sleep(1)
             print(6-i)
+            print("")
         }
         sleep(1)
         print("")
-        print("Go !!")
+        print("              Go !!")
         sleep(1)
     }
     
     // Function that creates a Team
-    func createTeam() -> Team {
+    private func createTeam() -> Team {
         
         var nameTeam = ""
         
@@ -149,7 +133,7 @@ class Game {
     }
     
     // Function that creates a Fighter
-    internal func createFighter() -> Fighter {
+    private func createFighter() -> Fighter {
         
         var nameMember = ""
         
@@ -199,7 +183,9 @@ class Game {
         return newFighter
     }
     
-    func attack(){
+    private func attack(){
+        /* in this function we will use control flow ( i == 1 ? 1 : 0) to switch from one team to another within the loop for i in 0...1
+         */
         
         // for loop with elements from listOfTeam
         for i in 0...1 {
@@ -225,6 +211,7 @@ class Game {
             print(attacking.description())
             pauseTapKeyboard()
             print("Now chose your opponent !!")
+            // teamNameForAction is turn into ( i == 1 ? 1 : 0)) because it is the attacker that is choosing the opponent from the opponent team ( i == 0 ? 1 : 0)
             let attacked = chooseFighterForAttack(ofTeamAttacker: ( i == 0 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
             for _ in 1...3{
                 print("")
@@ -246,16 +233,23 @@ class Game {
                 print("")
             }
             attacking.fighterWeapon = randomWeapon
+            
+            // calculate impact of attack
             attacked.fighterLife = max(attacked.fighterLife-attacking.fighterWeapon!.damage, 0)
+            
+            //tests
             if attacked.fighterLife < 1 {
+                // Test on fighterLife : dead (remove from team)
                 print("Oh my Good !! \(attacked.fighterName) is dead !!")
                 listOfTeam[( i == 0 ? 1 : 0)].teamMembers.remove(at: indexOfAttacked)
+                // Test on Team : if no member, the game is over
                 if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == 0 {
-                    print("End of game")
+                    print("End of game. All members of team \(listOfTeam[( i == 0 ? 1 : 0)].teamName) are dead now."
+                        + "\n team \(listOfTeam[( i == 1 ? 1 : 0)].teamName) wins !!! ")
                     break
                 }
             }
-            print("Here is the damages")
+            print("Here are the damages on the attacked fighter: ")
             print(attacked.description())
         }
     }
@@ -288,13 +282,33 @@ class Game {
         return chosenFighter
     }
     
-    func pauseTapKeyboard(){
+    private func pauseTapKeyboard(){
         for _ in 1...3{
             print("")
         }
         print("Tap enter key to continue")
         if readLine() != nil {
             print("")
+        }
+    }
+    
+    //
+    private func anotherGameMaybe(){
+        var newGame = ""
+        repeat{
+            print("Do you want to play again?"
+                + "\n1. Yes"
+                + "\n2. No"
+            )
+            if let answer = readLine(){
+                newGame = answer
+            }
+        } while newGame != "1"  && newGame != "2"
+        
+        switch newGame {
+        case "1": game = Game()
+            
+        default: print("Goodbye")
         }
     }
     
