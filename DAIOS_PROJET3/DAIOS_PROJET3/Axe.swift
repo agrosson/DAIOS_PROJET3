@@ -8,6 +8,10 @@
 
 import Foundation
 
+//======================
+// MARK: - SUBCLASS OF WEAPON
+//======================
+
 class Axe: Weapon {
     override init() {
         super.init()

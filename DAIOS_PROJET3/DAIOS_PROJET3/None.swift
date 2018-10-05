@@ -8,6 +8,10 @@
 
 import Foundation
 
+//======================
+// MARK: - SUBCLASS OF WEAPON
+//======================
+
 class None: Weapon {
     // The character has no weapon - should he fight with his hands only
     override init() {

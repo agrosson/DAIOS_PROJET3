@@ -8,6 +8,11 @@
 
 import Foundation
 
+//======================
+// MARK: - CLASS WEAPON
+//======================
+
+
 class Weapon {
     var weaponName = ""
     var damage = 0
