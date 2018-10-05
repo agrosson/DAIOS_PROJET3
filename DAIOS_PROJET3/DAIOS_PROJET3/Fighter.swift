@@ -16,7 +16,7 @@ class Fighter {
     var fighterName: String
     var fighterLife = 8
     var fighterAnimal = [Animal]()
-    var fighterWeapon:Weapon?
+    var fighterWeapon:Weapon = None()
     var fighterNatureType:NatureType?
     
     init(fighterName: String){

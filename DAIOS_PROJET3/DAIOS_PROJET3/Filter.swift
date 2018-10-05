@@ -16,7 +16,7 @@ class Filter: Weapon {
     override init() {
         super.init()
         weaponName = "Filter"
-        damage = 7
+        damage = 15
         weaponNatureType = .water
     }
 }

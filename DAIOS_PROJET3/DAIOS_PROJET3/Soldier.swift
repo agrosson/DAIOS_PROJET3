@@ -1,5 +1,5 @@
 //
-//  Witch.swift
+//  Soldier.swift
 //  DAIOS_PROJET3
 //
 //  Created by ALEXANDRE GROSSON on 05/10/2018.
@@ -12,17 +12,17 @@ import Foundation
 // MARK: - SUBCLASS OF FIGHTER
 //======================
 
-class Witch: Fighter {
-    let witchMaxLife = 15
+class Soldier: Fighter {
+    let soldierMaxLife = 8
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        fighterLife = witchMaxLife
-        fighterWeapon = Filter()
-        fighterNatureType = .water
+        fighterLife = soldierMaxLife
+        fighterWeapon = Knife()
+        fighterNatureType = .earth
     }
     
     override func description() -> String {
-        return "Hello, I am a witch. "
+        return "Hello, I am a soldier. "
             + super.description()
     }
 }

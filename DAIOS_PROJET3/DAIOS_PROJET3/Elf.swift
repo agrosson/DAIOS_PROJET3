@@ -17,6 +17,7 @@ class Elf: Fighter {
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = elfMaxLife
+        fighterWeapon = Arrow()
         fighterNatureType = .air
     }
     

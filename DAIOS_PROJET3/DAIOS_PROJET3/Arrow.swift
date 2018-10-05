@@ -16,7 +16,7 @@ class Arrow: Weapon {
     override init() {
         super.init()
         weaponName = "Arrow"
-        damage = 12
+        damage = 18
         weaponNatureType = .air
     }
 }

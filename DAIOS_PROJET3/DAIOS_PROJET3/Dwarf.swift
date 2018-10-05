@@ -17,6 +17,7 @@ class Dwarf: Fighter {
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = dwarfMaxLife
+        fighterWeapon = Axe()
         fighterNatureType = .earth
     }
     

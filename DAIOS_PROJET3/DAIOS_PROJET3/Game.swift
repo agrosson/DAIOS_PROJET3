@@ -161,12 +161,13 @@ class Game {
             + "\n4. A dwarf"
             + "\n5. An elf"
             + "\n6. A witch"
+            + "\n7. A soldier"
             )
             if let answer = readLine(){
                 type = answer
             }
         }
-            while type != "1"  && type != "2" && type != "3" && type != "4" && type != "5" && type != "6"
+            while type != "1"  && type != "2" && type != "3" && type != "4" && type != "5" && type != "6" && type != "7"
         
         switch type {
         case "1": newFighter = Warrior(fighterName: nameMember)
@@ -175,6 +176,7 @@ class Game {
         case "4": newFighter = Dwarf(fighterName: nameMember)
         case "5": newFighter = Elf(fighterName: nameMember)
         case "6": newFighter = Witch(fighterName: nameMember)
+        case "7": newFighter = Soldier(fighterName: nameMember)
         default:
             print("There is a bug somewhere")
         }
@@ -232,10 +234,10 @@ class Game {
             for _ in 1...3{
                 print("")
             }
-            attacking.fighterWeapon = randomWeapon
+            attacking.fighterWeapon = randomWeapon!
             
             // calculate impact of attack
-            attacked.fighterLife = max(attacked.fighterLife-attacking.fighterWeapon!.damage, 0)
+            attacked.fighterLife = max(attacked.fighterLife-attacking.fighterWeapon.damage, 0)
             
             //tests
             if attacked.fighterLife < 1 {

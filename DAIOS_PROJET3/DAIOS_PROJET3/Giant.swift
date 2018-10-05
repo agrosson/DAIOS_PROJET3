@@ -17,6 +17,7 @@ class Giant: Fighter {
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterLife = giantMaxLife
+        fighterWeapon = None()
         fighterNatureType = .earth
     }
     
