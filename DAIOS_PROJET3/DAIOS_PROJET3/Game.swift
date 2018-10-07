@@ -19,6 +19,7 @@ class Game {
     private let listOfWeapon = [Sword(),Axe(),Knife(),Arrow(),Filter(), None()]
     // Variable that tracks the index of the Fighter in the TeamMembers
     private var indexOfAttacked = 0
+    private var gameOver = false
     
     init() {
         gameStart()
@@ -44,7 +45,7 @@ class Game {
         """)
         repeat{
             attack()
-        } while (listOfTeam[0].teamLife > 0 && listOfTeam[1].teamLife > 0)
+        } while gameOver == false
         
         anotherGameMaybe()
         
@@ -260,15 +261,31 @@ class Game {
                 // calculate impact of attack
                 attacked.fighterLife = max(attacked.fighterLife-attacking.fighterWeapon.damage, 0)
                 
-                //tests
+                // Test on fighterLife : dead (remove from team) and is the game over?
                 if attacked.fighterLife < 1 {
-                    // Test on fighterLife : dead (remove from team)
                     print("Oh my Good !! \(attacked.fighterName) is dead !!")
                     listOfTeam[( i == 0 ? 1 : 0)].teamMembers.remove(at: indexOfAttacked)
-                    // Test on Team : if no member, the game is over
+                    
+                    // Count how many Wizards in the team
+                   var countWizard = 0
+                    for j in 0..<listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count{
+                        if listOfTeam[( i == 0 ? 1 : 0)].teamMembers[j].isAWizard {
+                            countWizard += 1
+                        }
+                    }
+                    // Test on Team : if only Wizards in the team, the game is over
+                    if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == countWizard {
+                        print("End of game. Team \(listOfTeam[( i == 0 ? 1 : 0)].teamName) is only composed of Wizards and is surrendering !!"
+                            + "\nTeam \(listOfTeam[( i == 1 ? 1 : 0)].teamName) wins !!! ")
+                        gameOver = true
+                        break
+                    }
+                    
+                     // Test on Team : if no member in the team, the game is over
                     if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == 0 {
-                        print("End of game. All members of team \(listOfTeam[( i == 0 ? 1 : 0)].teamName) are dead now."
-                            + "\n team \(listOfTeam[( i == 1 ? 1 : 0)].teamName) wins !!! ")
+                        print("End of game. All fighter members of team \(listOfTeam[( i == 0 ? 1 : 0)].teamName) are dead now."
+                            + "\nTeam \(listOfTeam[( i == 1 ? 1 : 0)].teamName) wins !!! ")
+                        gameOver = true
                         break
                     }
                 }
