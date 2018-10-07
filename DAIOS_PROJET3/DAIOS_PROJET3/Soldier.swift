@@ -13,10 +13,11 @@ import Foundation
 //======================
 
 class Soldier: Fighter {
-    let soldierMaxLife = 8
+    
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        fighterLife = soldierMaxLife
+        fighterMaxLife = 8
+        fighterLife =  fighterMaxLife
         fighterWeapon = Knife()
         fighterNatureType = .earth
     }

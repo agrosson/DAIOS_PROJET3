@@ -215,6 +215,14 @@ class Game {
             // do that if Wizard choosen
             if attacking.isAWizard {
                 // do something mister Wizard
+                print("You have choosen a Wizard. Who do you want to heal?")
+                let fighterToHeal = chooseFighterForAttack(ofTeamAttacker: ( i == 1 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
+                print("Here is the fighter to be healed by the Wizard!!!")
+                print(fighterToHeal.description())
+                fighterToHeal.fighterLife = min(Int(Double(fighterToHeal.fighterLife) * 1.5), fighterToHeal.fighterMaxLife)
+                print("Here is the fighter healed by the Wizard!!!")
+                print(fighterToHeal.description())
+                
             }
             else {
                 // do that if not Wizard choosen

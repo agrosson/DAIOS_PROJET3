@@ -14,6 +14,7 @@ import Foundation
 
 class Fighter {
     var fighterName: String
+    var fighterMaxLife = 100
     var fighterLife = 8
     var fighterAnimal = [Animal]()
     var fighterWeapon:Weapon = None()
