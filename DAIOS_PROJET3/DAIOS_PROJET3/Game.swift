@@ -56,6 +56,10 @@ class Game {
         print("")
         print("Here is the team 1:")
         let team1 = createTeam()
+        
+        // test if numberOfWizard = 3 in team1
+        onlyWizardsInTeam(team : team1)
+        
         // Makes a presentation of the first team
         print("")
         print(team1.presentation())
@@ -65,6 +69,10 @@ class Game {
         print("")
         print("Here is the team 2:")
         let team2 = createTeam()
+        
+        // test if numberOfWizard = 3
+        onlyWizardsInTeam(team : team2)
+        
         print("")
         // Make a presentation of the second team
         print(team2.presentation())
@@ -78,9 +86,21 @@ class Game {
         pauseTapKeyboard()
     }
     
-   
-
-    
+    private func onlyWizardsInTeam(team : Team){
+        var numberOfWizard = 0
+        for fighter in team.teamMembers{
+            if fighter.isAWizard {
+                numberOfWizard += 1
+            }
+        }
+        if numberOfWizard == 3 {
+            print("You can not have a team with only Wizards. Restart in 3 seconds")
+            //pause(3)
+            countDown()
+            game = Game()
+        }
+        
+    }
     // Function that prints a welcome message
     private func welcomeMessage() {
         print("""
@@ -93,9 +113,9 @@ class Game {
     
     // Fucntion that creates a countDown before the game is launched
     private func countDown() {
-        for i in 1...5{
+        for i in 1...3{
             sleep(1)
-            print(6-i)
+            print(4-i)
             print("")
         }
         sleep(1)
@@ -274,7 +294,8 @@ class Game {
                         }
                     }
                     // Test on Team : if only Wizards in the team, the game is over
-                    if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == countWizard {
+                    if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == countWizard && countWizard > 0
+                    {
                         print("End of game. Team \(listOfTeam[( i == 0 ? 1 : 0)].teamName) is only composed of Wizards and is surrendering !!"
                             + "\nTeam \(listOfTeam[( i == 1 ? 1 : 0)].teamName) wins !!! ")
                         gameOver = true
@@ -351,7 +372,7 @@ class Game {
         switch newGame {
         case "1": game = Game()
             
-        default: print("Goodbye")
+        default: break
         }
     }
     
