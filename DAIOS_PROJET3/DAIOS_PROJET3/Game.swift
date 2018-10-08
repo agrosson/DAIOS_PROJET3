@@ -24,6 +24,8 @@ class Game {
     private var gameOver = false
     /// Variable used as a factor that increases or decreases damages of a Weapon depending on both NatureType of Weapon and Fighter
     private var coefDamage = 1
+    /// Variable that tracks the number of attack/healing cycle, considered as day
+    private var day = 0
     
     init() {
         gameStart()
@@ -255,6 +257,24 @@ class Game {
      */
     private func attack(){
         
+        
+        // event before attack cycle
+        if day > 0 {
+            print("***********************************************")
+            print("Day \(day+1)")
+            /// variable to check if specific event occurs
+            let event = Int.random(in: 1...4)
+            if event == 4 {
+            eventHasOccured()
+                
+            } else {
+                print("The night was calm, nothing happened")
+            }
+            
+        }
+        // Increment day value
+        day += 1
+        
         // for loop with elements from listOfTeam
         for i in 0...1 {
             pauseTapKeyboard()
@@ -379,6 +399,18 @@ class Game {
     // bonus : send animal if any
     // attack
     // Sum up
+    
+    /**
+     Function that creates an event
+     */
+    private func eventHasOccured(){
+
+            print("this is an event")
+    }
+    
+    
+    
+    
     
     /**
      Function that selects a Fighter for the attack cycle
