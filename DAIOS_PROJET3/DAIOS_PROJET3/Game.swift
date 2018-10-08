@@ -22,6 +22,8 @@ class Game {
     private var indexOfAttacked = 0
     /// Variable that tracks if game is over
     private var gameOver = false
+    /// Variable used as a factor that increases or decreases damages of a Weapon depending on both NatureType of Weapon and Fighter
+    private var coefDamage = 1
     
     init() {
         gameStart()
@@ -317,10 +319,24 @@ class Game {
                 for _ in 1...3{
                     print("")
                 }
-                attacking.fighterWeapon = randomWeapon!
                 
+                // calculate the coefDamage: damage * 2 if same NatureType
+                
+                if randomWeapon!.weaponNatureType == attacking.fighterNatureType {
+                    coefDamage *= 2
+                    print("Outch !! The Fighter knows the weapon very well !!"
+                    + "\nThe damages are double !!")
+                }
+                
+                attacking.fighterWeapon = randomWeapon!
+                print("")
+                print("Damages caused : \(coefDamage * attacking.fighterWeapon.damage)")
+                print("")
                 // calculate impact of attack
-                attacked.fighterLife = max(attacked.fighterLife-attacking.fighterWeapon.damage, 0)
+                attacked.fighterLife = max(attacked.fighterLife - (coefDamage * attacking.fighterWeapon.damage), 0)
+                
+                // Set coefDamage back to 1
+                coefDamage = 1
                 
                 // Test on fighterLife : dead (remove from team) and is the game over?
                 if attacked.fighterLife < 1 {

@@ -18,6 +18,6 @@ class None: Weapon {
         super.init()
         weaponName = "None"
         damage = 2
-        weaponNatureType = .water
+        weaponNatureType = .earth
     }
 }

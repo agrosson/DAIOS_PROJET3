@@ -33,6 +33,8 @@ class Fighter {
     }
 }
 
-enum NatureType {
-    case earth, air, water
+enum NatureType: String {
+    case earth = "Earth"
+    case air = "Air"
+    case water = "Water"
 }
