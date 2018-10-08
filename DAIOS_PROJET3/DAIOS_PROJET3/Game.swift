@@ -10,24 +10,27 @@ import Foundation
 import Darwin // framework to use sleep()
 
 class Game {
-    // Array that lists all the teams of the Game
+    /// Array that lists all the teams of the Game
     private var listOfTeam = [Team]()
-    // Array that lists all the fighters of the Game, check if Team name Unique
+    /// Array that lists all the team names of the Game, used to check if Team name is unique
     private var listOfTeamName = [String]()
-    // Array that lists all the fighters of the Game, check if Fighter name Unique
+    /// Array that lists all the fighter names of the Game, used to check if Fighter name is unique
     private var listOfFighterName = [String]()
+    /// Array that lists all the Weapons available in the Game
     private let listOfWeapon = [Sword(),Axe(),Knife(),Arrow(),Filter(), None()]
-    // Variable that tracks the index of the Fighter in the TeamMembers
+    /// Variable that tracks the index of the Fighter in the TeamMembers
     private var indexOfAttacked = 0
+    /// Variable that tracks if game is over
     private var gameOver = false
     
     init() {
         gameStart()
     }
     
-    // Function that launches the game with execution of several functions
+    /** Function that launches the game with execution of several other functions
+ */
     private func gameStart() {
-        // Prints a welcome message
+        // Prints a welcome message and make a pause
         welcomeMessage()
         pauseTapKeyboard()
 
@@ -50,7 +53,12 @@ class Game {
         anotherGameMaybe()
         
     }
-    
+    /**
+    Function that creates two teams
+     # Important Notes #
+     - A test is made to check if team is composed only with Wizards
+     
+ */
     private func teamCreationCycle(){
         // Create the first team
         print("")
@@ -79,6 +87,10 @@ class Game {
         appendTeam(team: team2)
     }
     
+    /**
+    Function that appends the Team name into listOfTeamName and the Team into listOfTeam
+     - Parameter team : The team that has to be appended into the 2 arrays
+     */
     private func appendTeam(team : Team) {
         // Adds the team to list of team and name of the team to the list of teamNames to enable tests for unique names
         listOfTeamName.append(team.teamName)
@@ -86,6 +98,10 @@ class Game {
         pauseTapKeyboard()
     }
     
+    /**
+     Function that checks if the Team is composed with only Wizards
+     - Parameter team : The team that has to be checked
+     */
     private func onlyWizardsInTeam(team : Team){
         var numberOfWizard = 0
         for fighter in team.teamMembers{
@@ -101,7 +117,8 @@ class Game {
         }
         
     }
-    // Function that prints a welcome message
+    /** Function that prints a welcome message at begining of the game
+ */
     private func welcomeMessage() {
         print("""
         Welcome to this brand new game.
@@ -111,7 +128,8 @@ class Game {
         """)
     }
     
-    // Fucntion that creates a countDown before the game is launched
+    /** Function that creates a countdown
+ */
     private func countDown() {
         for i in 1...3{
             sleep(1)
@@ -124,7 +142,16 @@ class Game {
         sleep(1)
     }
     
-    // Function that creates a Team
+    /**
+     Function that creates a Team with 3 Fighters
+     - Returns: The Team thats has been created
+     
+     # Important Notes #
+         - Several controls are made:
+            1. Name of Team is got from user
+            2. Name of Team has to be unique
+     
+ */
     private func createTeam() -> Team {
         
         var nameTeam = ""
@@ -153,7 +180,15 @@ class Game {
         return teamInCreation
     }
     
-    // Function that creates a Fighter
+    /**
+    Function that creates a Fighter
+     - Returns: The Fighter thats has been created
+     
+     # Important Notes #
+     - Several controls are made:
+     1. Name of Fighter is got from user
+     2. Name of Fighter has to be unique
+ */
     private func createFighter() -> Fighter {
         
         var nameMember = ""
@@ -205,10 +240,18 @@ class Game {
         // returns the Fighter created with character type
         return newFighter
     }
-    
+    /**
+     Function that processes an attack or a healing cycle
+     
+     # Important Notes #
+     - Control flow ( i == 1 ? 1 : 0) is used to switch from one team to another within the loop for i in 0...1
+     - Healing cycle is processed when Wizard type of Fighter is chosen
+     - Attack cycle is processed when another type of Fighter is chosen:
+        1. If fighterLife < 1 : Fighter is dead and is removed from Team
+        2. If no member left in Team : End of game
+        3. If only Wizards left in Team : End of game
+     */
     private func attack(){
-        /* in this function we will use control flow ( i == 1 ? 1 : 0) to switch from one team to another within the loop for i in 0...1
-         */
         
         // for loop with elements from listOfTeam
         for i in 0...1 {
@@ -230,10 +273,8 @@ class Game {
             
             
             
-            // Here : let a test to see if Wizard is choosen
-            
-            
-            // do that if Wizard choosen
+            // Here : let a test to see if Wizard is chosen
+            // do the following block of code if Wizard is chosen
             if attacking.isAWizard {
                 // do something mister Wizard
                 print("You have choosen a Wizard. Who do you want to heal?")
@@ -246,7 +287,7 @@ class Game {
                 
             }
             else {
-                // do that if not Wizard choosen
+                // do the following block of code if Wizard is not chosen
                 
                 for _ in 1...3{
                     print("")
@@ -323,6 +364,13 @@ class Game {
     // attack
     // Sum up
     
+    /**
+     Function that selects a Fighter for the attack cycle
+     - Parameter ofTeamAttacker : Index of selected team (in listOfTeam)
+     - Parameter teamNameForAction : Index of selected team (in listOfTeam) to print relevant name of the team in the attack cycle
+     - Returns: Fighter that attacks, heals, is attacked or is healed
+     
+     */
     private func chooseFighterForAttack(ofTeamAttacker: Int, teamNameForAction: Int) -> Fighter {
         let chosenFighter: Fighter
         var choice = ""
