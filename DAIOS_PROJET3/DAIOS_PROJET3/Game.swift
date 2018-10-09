@@ -458,7 +458,8 @@ class Game {
         switch indexOfEvent {
         case 1: food(team: teamForEvent)
         case 2: storm(team: teamForEvent)
-        case 3: findAnimal(team: teamForEvent, index: fighterIndex)
+        // case 3: findAnimal(team: teamForEvent, index: fighterIndex)
+        case 3: teamForEvent.teamMembers[fighterIndex].isAWizard ? print("The Wizard missed to catch an animal") : findAnimal(team: teamForEvent, index: fighterIndex)
         case 4: betray(teamBetrayed: teamForEvent, indexTraitor: fighterIndex, newTeam: secondTeam)
             
         default:
