@@ -450,7 +450,7 @@ class Game {
      Function that decreases life for all Fighter of a given Team
      */
     private func storm(team : Team) {
-        // to do: code for storm
+    
         print("Bad luck for Team \(team.teamName) !! There was a lot of damage during the storm last night. Every fighter is feeling weaker now")
         sleep(2)
         print("***********")
@@ -470,7 +470,43 @@ class Game {
      */
     private func findAnimal(team : Team, index: Int) {
         // to do: code for findAnimal
+        let indexAnimal = Int.random(in: 1...5)
+        var animalFoundType = .dog
+        switch indexAnimal {
+        case 1: animalFoundType = .dog; print("You found a dog")
+        case 2: animalFoundType = .snake;print("You found a snake")
+        case 3: animalFoundType = .dragon;print("You found a dragon")
+        case 4: animalFoundType = .horse;print("You found a horse")
+        case 5: animalFoundType = .aligator; print("You found a aligator")
+        default:
+            print("error in findAnimal event")
+        }
+        
+        
+        var animalFoundName = ""
+        repeat{
+            
+            print("What is the name of your new animal?")
+            if let name = readLine(){
+                animalFoundName = name.uppercased()
+                animalFoundName.removeFirstAndLastWhitespace()
+            }}
+            while animalFoundName == ""
+        
+        let animalFound = Animal(animalName: animalFoundName, animalType: animalFoundType)
+        
+        
+        
+        print("Lucky Team \(team.teamName) !! \(team.teamMembers[index].fighterName) has found an animal")
+        sleep(2)
+        print("***********")
+        print("Before event")
+        print(team.presentation())
+        print("***********")
+        print("After event")
+        team.teamMembers[index].fighterAnimal.append(animalFound)
         print("animal")
+        print(team.presentation())
         print("***********************************************************************")
     }
     

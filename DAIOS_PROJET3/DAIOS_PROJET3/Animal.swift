@@ -28,6 +28,7 @@ class Animal {
         case .snake: weaponTypeNature = .earth
         case .dragon: weaponTypeNature = .air
         case .horse: weaponTypeNature = .earth
+        case .aligator: weaponTypeNature = .water
         }
     }
 }
@@ -42,6 +43,7 @@ class Animal {
  enum AnimalType: Int {
     case dog = 10
     case snake = 5
-    case dragon = 20
+    case dragon = 25
     case horse = 15
+    case aligator = 20
 }
