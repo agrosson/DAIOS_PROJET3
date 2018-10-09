@@ -32,18 +32,18 @@ class Game {
     }
     
     /** Function that launches the game with execution of several other functions
- */
+     */
     private func gameStart() {
         // Prints a welcome message and make a pause
         welcomeMessage()
         pauseTapKeyboard()
-
+        
         // CountDown
         countDown()
         
         // Creates the teams
-       teamCreationCycle()
-    
+        teamCreationCycle()
+        
         // simul attack
         print("""
                 Now things are getting harder
@@ -58,11 +58,11 @@ class Game {
         
     }
     /**
-    Function that creates two teams
+     Function that creates two teams
      # Important Notes #
      - A test is made to check if team is composed only with Wizards
      
- */
+     */
     private func teamCreationCycle(){
         // Create the first team
         print("")
@@ -92,7 +92,7 @@ class Game {
     }
     
     /**
-    Function that appends the Team name into listOfTeamName and the Team into listOfTeam
+     Function that appends the Team name into listOfTeamName and the Team into listOfTeam
      - Parameter team : The team that has to be appended into the 2 arrays
      */
     private func appendTeam(team : Team) {
@@ -115,14 +115,13 @@ class Game {
         }
         if numberOfWizard == 3 {
             print("You can not have a team with only Wizards. Restart in 3 seconds")
-            //pause(3)
             countDown()
             game = Game()
         }
         
     }
     /** Function that prints a welcome message at begining of the game
- */
+     */
     private func welcomeMessage() {
         print("""
         Welcome to this brand new game.
@@ -133,7 +132,7 @@ class Game {
     }
     
     /** Function that creates a countdown
- */
+     */
     private func countDown() {
         for i in 1...3{
             sleep(1)
@@ -151,11 +150,11 @@ class Game {
      - Returns: The Team thats has been created
      
      # Important Notes #
-         - Several controls are made:
-            1. Name of Team is got from user
-            2. Name of Team has to be unique
+     - Several controls are made:
+     1. Name of Team is got from user
+     2. Name of Team has to be unique
      
- */
+     */
     private func createTeam() -> Team {
         
         var nameTeam = ""
@@ -185,14 +184,14 @@ class Game {
     }
     
     /**
-    Function that creates a Fighter
+     Function that creates a Fighter
      - Returns: The Fighter thats has been created
      
      # Important Notes #
      - Several controls are made:
      1. Name of Fighter is got from user
      2. Name of Fighter has to be unique
- */
+     */
     private func createFighter() -> Fighter {
         
         var nameMember = ""
@@ -251,24 +250,26 @@ class Game {
      - Control flow ( i == 1 ? 1 : 0) is used to switch from one team to another within the loop for i in 0...1
      - Healing cycle is processed when Wizard type of Fighter is chosen
      - Attack cycle is processed when another type of Fighter is chosen:
-        1. If fighterLife < 1 : Fighter is dead and is removed from Team
-        2. If no member left in Team : End of game
-        3. If only Wizards left in Team : End of game
+     1. If fighterLife < 1 : Fighter is dead and is removed from Team
+     2. If no member left in Team : End of game
+     3. If only Wizards left in Team : End of game
      */
     private func attack(){
         
         
         // event before attack cycle
         if day > 0 {
-            print("***********************************************")
+            print("***********************************************************************")
             print("Day \(day+1)")
             /// variable to check if specific event occurs
             let event = Int.random(in: 1...4)
             if event == 4 {
-            eventHasOccured()
+                eventHasOccured()
                 
             } else {
+                
                 print("The night was calm, nothing happened")
+                print("***********************************************************************")
             }
             
         }
@@ -286,7 +287,7 @@ class Game {
             print("")
             print(" THE TEAM \(listOfTeam[( i == 0 ? 1 : 0)].teamName) IS BEING ATTACKED !!!!")
             print("")
-        
+            
             print(listOfTeam[( i == 0 ? 1 : 0)].presentation())
             print("")
             pauseTapKeyboard()
@@ -345,7 +346,7 @@ class Game {
                 if randomWeapon!.weaponNatureType == attacking.fighterNatureType {
                     coefDamage *= 2
                     print("Outch !! The Fighter knows the weapon very well !!"
-                    + "\nThe damages are double !!")
+                        + "\nThe damages are double !!")
                 }
                 
                 attacking.fighterWeapon = randomWeapon!
@@ -364,7 +365,7 @@ class Game {
                     listOfTeam[( i == 0 ? 1 : 0)].teamMembers.remove(at: indexOfAttacked)
                     
                     // Count how many Wizards in the team
-                   var countWizard = 0
+                    var countWizard = 0
                     for j in 0..<listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count{
                         if listOfTeam[( i == 0 ? 1 : 0)].teamMembers[j].isAWizard {
                             countWizard += 1
@@ -379,7 +380,7 @@ class Game {
                         break
                     }
                     
-                     // Test on Team : if no member in the team, the game is over
+                    // Test on Team : if no member in the team, the game is over
                     if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == 0 {
                         print("End of game. All fighter members of team \(listOfTeam[( i == 0 ? 1 : 0)].teamName) are dead now."
                             + "\nTeam \(listOfTeam[( i == 1 ? 1 : 0)].teamName) wins !!! ")
@@ -391,7 +392,7 @@ class Game {
                 print(attacked.description())
                 
             }
-
+            
         }
     }
     // First player choose its opponent
@@ -401,16 +402,77 @@ class Game {
     // Sum up
     
     /**
-     Function that creates an event
+     Function that creates an event and choose between 4 events
      */
     private func eventHasOccured(){
-
-            print("this is an event")
+        
+        print("this is an event")
+        let indexOfEvent = Int.random(in: 1...4)
+        let indexTeamForEvent = Int.random(in: 0...1)
+        let indexSecondTeam = indexTeamForEvent == 0 ? 0 : 1
+        let teamForEvent = listOfTeam[indexTeamForEvent]
+        let secondTeam = listOfTeam[indexSecondTeam]
+        let fighterIndex = Int.random(in: 0..<teamForEvent.teamMembers.count)
+        
+        switch indexOfEvent {
+        case 1: food(team: teamForEvent)
+        case 2: storm(team: teamForEvent)
+        case 3: findAnimal(team: teamForEvent, index: fighterIndex)
+        case 4: betray(teamBetrayed: teamForEvent, indexTraitor: fighterIndex, newTeam: secondTeam)
+            
+        default:
+            print("Error : but it should not happen")
+        }
+        
+        
+    }
+    /**
+     Function that increases life for all Fighter of a given Team
+     */
+    private func food(team : Team) {
+        // to do: code for food
+        
+        print("Lucky Team \(team.teamName) !! You have found food and medicine during the night. Every fighter is feeling better now")
+        sleep(2)
+        print("***********")
+        print("Before event")
+        print(team.presentation())
+        print("***********")
+        print("After event")
+        for fighter in team.teamMembers{
+            fighter.fighterLife = min(fighter.fighterMaxLife, fighter.fighterLife + 20)
+        }
+        print(team.presentation())
+        print("***********************************************************************")
+    }
+    
+    /**
+     Function that decreases life for all Fighter of a given Team
+     */
+    private func storm(team : Team) {
+        // to do: code for storm
+        print("storm")
+        print("***********************************************************************")
+    }
+    
+    /**
+     Function that adds an animal to one Fighter of a given Team
+     */
+    private func findAnimal(team : Team, index: Int) {
+        // to do: code for findAnimal
+        print("animal")
+        print("***********************************************************************")
     }
     
     
-    
-    
+    /**
+     Function that removes one Fighter from a given Team and adds this Fighter to the other Team
+     */
+    private func betray(teamBetrayed : Team, indexTraitor: Int, newTeam: Team) {
+        // to do: code for betrayal
+        print("traitor")
+        print("***********************************************************************")
+    }
     
     /**
      Function that selects a Fighter for the attack cycle
