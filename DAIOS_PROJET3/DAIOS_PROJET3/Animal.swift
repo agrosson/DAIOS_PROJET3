@@ -13,12 +13,18 @@ import Foundation
 // MARK: Class animal
 //======================
 class Animal {
+    /// Name of the Animal
     var animalName: String
+    /// AnimalType of the Animal
     var animalType: AnimalType
+    /// Variable that tracks the NatureType of the animal used as Weapon during a fight
     var weaponTypeNature: NatureType
+    /// Level of damages inflicted to the opponent by the animal
     var animalDamage: Int {
         get { return animalType.rawValue}
     }
+    /// Variable that tracks the number of fights the animal can do
+    var numberOfFight = 3
     
     init(animalName: String, animalType : AnimalType) {
         self.animalName = animalName

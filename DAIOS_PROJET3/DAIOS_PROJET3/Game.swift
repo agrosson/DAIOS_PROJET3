@@ -24,6 +24,8 @@ class Game {
     private var gameOver = false
     /// Variable used as a factor that increases or decreases damages of a Weapon depending on both NatureType of Weapon and Fighter
     private var coefDamage = 1
+    /// Variable mesures damages of one or several Animals during a fight depending on both NatureType of Animal and Fighter
+    private var totalDamageAnimalDuringFight = 0
     /// Variable that tracks the number of attack/healing cycle, considered as day
     private var day = 0
     
@@ -307,11 +309,8 @@ class Game {
                 fighterToHeal.fighterLife = min(Int(Double(fighterToHeal.fighterLife) * 1.5), fighterToHeal.fighterMaxLife)
                 print("Here is the fighter healed by the Wizard!!!")
                 print(fighterToHeal.description())
-                
             }
             else {
-                // do the following block of code if Wizard is not chosen
-                
                 for _ in 1...3{
                     print("")
                 }
@@ -326,17 +325,19 @@ class Game {
                 }
                 print("Here is the Attacked fighter !!!")
                 print(attacked.description())
-                
+                print("***********************************************************************")
                 for _ in 1...3{
                     print("The fight is on !!!")
                 }
                 pauseTapKeyboard()
-                print("Here is the the result")
-                
+                print("The fighter is openning a trunck to get (or not) a new weapon!!")
+               
                 // random weapon
                 let randomWeapon = listOfWeapon.randomElement()
-                
-                print("The attacker gets a \(randomWeapon!.weaponName)")
+                for _ in 1...3{
+                    print("")
+                }
+                print("The attacker gets a \(randomWeapon!.weaponName) from the trunck")
                 for _ in 1...3{
                     print("")
                 }
@@ -345,20 +346,45 @@ class Game {
                 
                 if randomWeapon!.weaponNatureType == attacking.fighterNatureType {
                     coefDamage *= 2
-                    print("Outch !! The Fighter knows the weapon very well !!"
+                    print("Outch !! \(attacking.fighterName) knows the weapon very well !!"
                         + "\nThe damages are double !!")
                 }
                 
                 attacking.fighterWeapon = randomWeapon!
                 print("")
-                print("Damages caused : \(coefDamage * attacking.fighterWeapon.damage)")
+                print("Damages caused by Weapon: \(coefDamage * attacking.fighterWeapon.damage)")
                 print("")
+                    
+                // check if attacking has animals
+                    if attacking.fighterAnimal.count > 0 {
+                    print("Outch !! \(attacking.fighterName) has \(attacking.fighterAnimal.count) " + (attacking.fighterAnimal.count > 1 ? "animals" : "animal"))
+                    print("Hard time for its opponent !!")
+                        for animal in attacking.fighterAnimal {
+                            // Double if Fighter and animal have same NatureType
+                            if animal.weaponTypeNature == attacking.fighterNatureType {
+                                totalDamageAnimalDuringFight += animal.animalDamage
+                            }
+                            totalDamageAnimalDuringFight += animal.animalDamage
+                            // decrease for 1 the number
+                            animal.numberOfFight -= 1
+                        }
+                        print("")
+                        print("Damages caused by animals: \(totalDamageAnimalDuringFight)")
+                        print("")
+                    }
+                    
+
                 // calculate impact of attack
-                attacked.fighterLife = max(attacked.fighterLife - (coefDamage * attacking.fighterWeapon.damage), 0)
+                attacked.fighterLife = max(attacked.fighterLife - (coefDamage * attacking.fighterWeapon.damage) - totalDamageAnimalDuringFight, 0)
                 
                 // Set coefDamage back to 1
                 coefDamage = 1
+                // Set totalDamageAnimalDuringFight back to  0
+                totalDamageAnimalDuringFight = 0
                 
+                // remove animal from fighterAnimal if numberOfFight = 0
+                removeAnimal(fighter: attacking)
+                    
                 // Test on fighterLife : dead (remove from team) and is the game over?
                 if attacked.fighterLife < 1 {
                     print("Oh my Good !! \(attacked.fighterName) is dead !!")
@@ -392,14 +418,29 @@ class Game {
                 print(attacked.description())
                 
             }
-            
-        }
+            }
+        
     }
     // First player choose its opponent
     // random trunck
     // bonus : send animal if any
     // attack
     // Sum up
+    
+    /**
+    Function that removes an animal from array fighterAnimal of a Fighter when numberOFight of Animal is 0
+    */
+    private func removeAnimal(fighter: Fighter) {
+        var trackIndex = [Int]()
+        for i in 0..<fighter.fighterAnimal.count {
+            if fighter.fighterAnimal[i].numberOfFight == 0 {
+                trackIndex.append(i)
+            }
+        }
+        for j in trackIndex {
+            fighter.fighterAnimal.remove(at: j)
+        }
+    }
     
     /**
      Function that creates an event and choose between 4 events
@@ -471,7 +512,7 @@ class Game {
     private func findAnimal(team : Team, index: Int) {
         // to do: code for findAnimal
         let indexAnimal = Int.random(in: 1...5)
-        var animalFoundType = .dog
+        var animalFoundType: AnimalType = .dog
         switch indexAnimal {
         case 1: animalFoundType = .dog; print("You found a dog")
         case 2: animalFoundType = .snake;print("You found a snake")
