@@ -451,7 +451,17 @@ class Game {
      */
     private func storm(team : Team) {
         // to do: code for storm
-        print("storm")
+        print("Bad luck for Team \(team.teamName) !! There was a lot of damage during the storm last night. Every fighter is feeling weaker now")
+        sleep(2)
+        print("***********")
+        print("Before event")
+        print(team.presentation())
+        print("***********")
+        print("After event")
+        for fighter in team.teamMembers{
+            fighter.fighterLife = max(fighter.fighterLife/2, fighter.fighterLife - 15)
+        }
+        print(team.presentation())
         print("***********************************************************************")
     }
     
