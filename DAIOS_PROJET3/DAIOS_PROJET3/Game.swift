@@ -9,6 +9,10 @@
 import Foundation
 import Darwin // framework to use sleep()
 
+/**
+ Class that defines all the features of the Game and set the process of the game
+ */
+
 class Game {
     /// Array that lists all the teams of the Game
     private var listOfTeam = [Team]()
@@ -36,6 +40,7 @@ class Game {
     /** Function that launches the game with execution of several other functions
      */
     private func gameStart() {
+        
         // Prints a welcome message and make a pause
         welcomeMessage()
         pauseTapKeyboard()
@@ -48,9 +53,11 @@ class Game {
         
         // simul attack
         print("""
-                Now things are getting harder
+        ************************************************************
+        Now things are getting harder
         Please be prepared for a cruel fight !!!
         Be the best, and stay alive !!
+        ************************************************************
         """)
         repeat{
             attack()
@@ -126,10 +133,12 @@ class Game {
      */
     private func welcomeMessage() {
         print("""
+        ************************************************************
         Welcome to this brand new game.
         Be ready to fight !!
         Build a team and choose your best fighters to win the game!
         Are you ready? Yes ?
+        ************************************************************
         """)
     }
     
@@ -142,9 +151,7 @@ class Game {
             print("")
         }
         sleep(1)
-        print("")
-        print("              Go !!")
-        sleep(1)
+        print("Go !!")
     }
     
     /**

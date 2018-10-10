@@ -11,12 +11,19 @@ import Foundation
 //======================
 // MARK: - SUBCLASS OF WEAPON
 //======================
-
+/**
+ This class is a subclass of Weapon
+ 
+ - Initialize the variables for Filter object:
+ 1. weaponName
+ 2. damage
+ 3. weaponNatureType
+ */
 class Filter: Weapon {
     override init() {
         super.init()
         weaponName = "Filter"
-        damage = 15
+        damage = 30
         weaponNatureType = .water
     }
 }
