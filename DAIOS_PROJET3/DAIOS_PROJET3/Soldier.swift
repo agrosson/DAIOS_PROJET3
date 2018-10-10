@@ -16,7 +16,7 @@ class Soldier: Fighter {
     
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
-        fighterMaxLife = 8
+        fighterMaxLife = 80
         fighterLife =  fighterMaxLife
         fighterWeapon = Knife()
         fighterNatureType = .earth

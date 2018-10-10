@@ -450,7 +450,7 @@ class Game {
         print("this is an event")
         let indexOfEvent = Int.random(in: 1...4)
         let indexTeamForEvent = Int.random(in: 0...1)
-        let indexSecondTeam = indexTeamForEvent == 0 ? 0 : 1
+        let indexSecondTeam = indexTeamForEvent == 0 ? 1 : 0
         let teamForEvent = listOfTeam[indexTeamForEvent]
         let secondTeam = listOfTeam[indexSecondTeam]
         let fighterIndex = Int.random(in: 0..<teamForEvent.teamMembers.count)
@@ -460,7 +460,8 @@ class Game {
         case 2: storm(team: teamForEvent)
         // case 3: findAnimal(team: teamForEvent, index: fighterIndex)
         case 3: teamForEvent.teamMembers[fighterIndex].isAWizard ? print("The Wizard missed to catch an animal") : findAnimal(team: teamForEvent, index: fighterIndex)
-        case 4: betray(teamBetrayed: teamForEvent, indexTraitor: fighterIndex, newTeam: secondTeam)
+            // Team Should have at least two members of betray event
+        case 4: teamForEvent.teamMembers.count == 1 ? print(" Team \(teamForEvent.teamName) has nearly stepped down but found energy to go back to fight !") : betray(teamBetrayed: teamForEvent, indexTraitor: fighterIndex, newTeam: secondTeam)
             
         default:
             print("Error : but it should not happen")
@@ -558,8 +559,25 @@ class Game {
      */
     private func betray(teamBetrayed : Team, indexTraitor: Int, newTeam: Team) {
         // to do: code for betrayal
-        print("traitor")
         print("***********************************************************************")
+        let traitor = teamBetrayed.teamMembers[indexTraitor]
+        teamBetrayed.teamMembers.remove(at: indexTraitor)
+        var countLeftMembers = 0
+        
+        // test to check if all members but the traitor are Wizards - if so, the traitor stay in its team
+        for leftMembers in teamBetrayed.teamMembers {
+            if leftMembers.isAWizard {
+                countLeftMembers += 1
+            }
+        }
+        if countLeftMembers == teamBetrayed.teamMembers.count {
+            print(" Team \(teamBetrayed.teamName) has nearly stepped down but found energy to go back to fight !")
+            // the traitor goes back to its team
+            teamBetrayed.teamMembers.append(traitor)
+        } else {
+            print("This is crazy !! \(traitor.fighterName) has betrayed and left Team \(teamBetrayed.teamName) to join Team \(newTeam.teamName)")
+            newTeam.teamMembers.append(traitor)
+        }
     }
     
     /**

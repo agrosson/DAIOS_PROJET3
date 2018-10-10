@@ -16,7 +16,7 @@ class Wizard: Fighter {
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         isAWizard = true
-        fighterMaxLife = 10
+        fighterMaxLife = 100
         fighterLife = fighterMaxLife
         // fighterWeapon = Potion() à créer
         fighterNatureType = .water
