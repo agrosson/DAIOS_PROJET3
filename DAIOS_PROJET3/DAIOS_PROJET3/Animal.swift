@@ -41,7 +41,9 @@ class Animal {
 //======================
 // MARK: Enum AnimalType
 //======================
-/* :
+/**
+ Enumeration lists animalType and damages as raw Values
+ 
   `This enumeration:`
  - lists the animalTypes
  - mesures the additionnal damage caused during the attack if you have a animal, using raw values

@@ -25,4 +25,7 @@ class Elf: Fighter {
         return "Hello, I am an elf. "
             + super.description()
     }
+    override func lightDescription() -> String {
+        return "\(fighterName) IS AN ELF !!"
+    }
 }

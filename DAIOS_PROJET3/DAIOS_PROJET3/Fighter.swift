@@ -25,7 +25,7 @@ import Foundation
  
 Function
  - description()
- 
+ - lightDescription()
  */
 class Fighter {
     /// Variable that indicates the name of the Fighter
@@ -43,6 +43,11 @@ class Fighter {
     /// Boolean that indicates if Fighter is a type of Wizard Fighter
     var isAWizard = false
     
+    /**
+     Function that initializes Fighter
+     - Parameter fighterName: Name of the Fighter
+     */
+
     init(fighterName: String){
         self.fighterName = fighterName
     }
@@ -56,8 +61,19 @@ class Fighter {
             + "\n  1. My life level:" + ( fighterLife == 0 ? " \(fighterLife), I am dead! See you in Heaven !!" : " \(fighterLife)")
             + "\n  2. I have got \(fighterAnimal.count) " + (fighterAnimal.count > 1 ? "animals" : "animal")
     }
+    /**
+     Function that describes name and type of  Fighter
+     - Returns: Text (String) that states the name and type of Fighter
+     */
+    func lightDescription() -> String {
+        return "\(fighterName) IS A FIGHTER !!"
+    }
 }
 
+
+/**
+ Enum that lists the 3 NatureType possible for Fighter, Weapons and Animals
+ */
 enum NatureType: String {
     case earth = "Earth"
     case air = "Air"

@@ -22,7 +22,10 @@ class Warrior: Fighter {
     }
     
     override func description() -> String {
-        return "Hello, I am a warior. "
+        return "Hello, I am a warrior. "
             + super.description()
+    }
+    override func lightDescription() -> String {
+        return "\(fighterName) IS A WARRIOR !!"
     }
 }

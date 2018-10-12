@@ -82,19 +82,19 @@ class Game {
         onlyWizardsInTeam(team : team1)
         
         // Makes a presentation of the first team
-        print("")
+        print("************************************************************")
         print(team1.presentation())
         appendTeam(team: team1)
         
         // Creates the second team
-        print("")
+        print("************************************************************")
         print("Here is the team 2:")
         let team2 = createTeam()
         
         // test if numberOfWizard = 3
         onlyWizardsInTeam(team : team2)
         
-        print("")
+        print("************************************************************")
         // Make a presentation of the second team
         print(team2.presentation())
         appendTeam(team: team2)
@@ -152,6 +152,7 @@ class Game {
         }
         sleep(1)
         print("Go !!")
+        print("************************************************************")
     }
     
     /**
@@ -182,8 +183,9 @@ class Game {
         
         // adds 3 fighters to the team and appends the team
         for numbF in 1...3 {
-            print("")
+            print("************************************************************")
             print("Fighter number \(numbF)")
+            print("")
             let fighter1 = createFighter()
             teamInCreation.teamMembers.append(fighter1)
         }
@@ -202,7 +204,7 @@ class Game {
      2. Name of Fighter has to be unique
      */
     private func createFighter() -> Fighter {
-        
+        print("")
         var nameMember = ""
         
         // Gets the name of the Fighter from user - check if name is unique
@@ -290,10 +292,12 @@ class Game {
             pauseTapKeyboard()
             
             // Both team presents themselves
+            print("************************************************************")
             print(" THE TEAM \(listOfTeam[( i == 1 ? 1 : 0)].teamName) IS ATTACKING !!!!")
             print("")
             print(listOfTeam[( i == 1 ? 1 : 0)].presentation())
             print("")
+            print("************************************************************")
             print(" THE TEAM \(listOfTeam[( i == 0 ? 1 : 0)].teamName) IS BEING ATTACKED !!!!")
             print("")
             
@@ -323,7 +327,9 @@ class Game {
                 }
                 print("Here is the Attacker !!!")
                 print(attacking.description())
+                print("************************************************************")
                 pauseTapKeyboard()
+                print("************************************************************")
                 print("Now chose your opponent !!")
                 // teamNameForAction is turn into ( i == 1 ? 1 : 0)) because it is the attacker that is choosing the opponent from the opponent team ( i == 0 ? 1 : 0)
                 let attacked = chooseFighterForAttack(ofTeamAttacker: ( i == 0 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
@@ -332,11 +338,13 @@ class Game {
                 }
                 print("Here is the Attacked fighter !!!")
                 print(attacked.description())
-                print("***********************************************************************")
+                print("************************************************************")
+                print("")
                 for _ in 1...3{
                     print("The fight is on !!!")
                 }
                 pauseTapKeyboard()
+                print("************************************************************")
                 print("The fighter is openning a trunck to get (or not) a new weapon!!")
                
                 // random weapon
@@ -345,9 +353,9 @@ class Game {
                     print("")
                 }
                 print("The attacker gets a \(randomWeapon!.weaponName) from the trunck")
-                for _ in 1...3{
-                    print("")
-                }
+                print("************************************************************")
+                pauseTapKeyboard()
+                print("************************************************************")
                 
                 // calculate the coefDamage: damage * 2 if same NatureType
                 
@@ -360,8 +368,10 @@ class Game {
                 attacking.fighterWeapon = randomWeapon!
                 print("")
                 print("Damages caused by Weapon: \(coefDamage * attacking.fighterWeapon.damage)")
+                sleep(2)
                 print("")
-                    
+                print("************************************************************")
+                print("")
                 // check if attacking has animals
                     if attacking.fighterAnimal.count > 0 {
                     print("Outch !! \(attacking.fighterName) has \(attacking.fighterAnimal.count) " + (attacking.fighterAnimal.count > 1 ? "animals" : "animal"))
@@ -380,7 +390,7 @@ class Game {
                         print("")
                     }
                     
-
+               
                 // calculate impact of attack
                 attacked.fighterLife = max(attacked.fighterLife - (coefDamage * attacking.fighterWeapon.damage) - totalDamageAnimalDuringFight, 0)
                 
@@ -406,7 +416,8 @@ class Game {
                     }
                     // Test on Team : if only Wizards in the team, the game is over
                     if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == countWizard && countWizard > 0
-                    {
+                    {   print("")
+                        print("************************************************************")
                         print("End of game. Team \(listOfTeam[( i == 0 ? 1 : 0)].teamName) is only composed of Wizards and is surrendering !!"
                             + "\nTeam \(listOfTeam[( i == 1 ? 1 : 0)].teamName) wins !!! ")
                         gameOver = true
@@ -415,6 +426,8 @@ class Game {
                     
                     // Test on Team : if no member in the team, the game is over
                     if listOfTeam[( i == 0 ? 1 : 0)].teamMembers.count == 0 {
+                        print("")
+                        print("************************************************************")
                         print("End of game. All fighter members of team \(listOfTeam[( i == 0 ? 1 : 0)].teamName) are dead now."
                             + "\nTeam \(listOfTeam[( i == 1 ? 1 : 0)].teamName) wins !!! ")
                         gameOver = true
@@ -600,9 +613,10 @@ class Game {
         var listOfChoice = [String]()
         repeat{
             var counter = 1
+            print("************************************************************")
             print("\(listOfTeam[teamNameForAction].teamName): What is your selected fighter?")
             for fighter in listOfTeam[ofTeamAttacker].teamMembers {
-                print("\(counter). \(fighter.fighterName)")
+                print("\(counter). \(fighter.lightDescription())")
                 listOfChoice.append("\(counter)")
                 counter += 1
             }
