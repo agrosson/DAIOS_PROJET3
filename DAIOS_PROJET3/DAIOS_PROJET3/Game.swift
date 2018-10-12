@@ -10,7 +10,23 @@ import Foundation
 import Darwin // framework to use sleep()
 
 /**
- Class that defines all the features of the Game and set the process of the game
+ Class that defines all the features of the Game and sets the process of the game
+ 
+ 9 variables and initial values:
+ 1. listOfTeam
+ 2. listOfTeamName
+ 3. listOfFighterName
+ 4. listOfWeapon
+ 5. indexOfAttacked
+ 6. gameOver
+ 7. coefDamage
+ 8. totalDamageAnimalDuringFight
+ 9. day
+ 
+ 19 Functions
+ - init()
+ - gameStart()
+ 
  */
 
 class Game {
@@ -33,6 +49,10 @@ class Game {
     /// Variable that tracks the number of attack/healing cycle, considered as day
     private var day = 0
     
+    /**
+     Function that initializes Game and launches the game
+     
+     */
     init() {
         gameStart()
     }
@@ -59,13 +79,55 @@ class Game {
         Be the best, and stay alive !!
         ************************************************************
         """)
+        
+        // repeat/while loop that repeat attack cycle until the game is over
         repeat{
             attack()
         } while gameOver == false
         
+        // function that ask the players to play again or exit
         anotherGameMaybe()
         
     }
+    
+    /** Function that prints a welcome message at begining of the game
+     */
+    private func welcomeMessage() {
+        print("""
+        ************************************************************
+        Welcome to this brand new game.
+        Be ready to fight !!
+        Build a team and choose your best fighters to win the game!
+        Are you ready? Yes ?
+        ************************************************************
+        """)
+    }
+    
+    /** Function that prints a message and asks the player to touch enter key to continue
+     */
+    private func pauseTapKeyboard(){
+        for _ in 1...3{
+            print("")
+        }
+        print("Tap enter key to continue")
+        if readLine() != nil {
+            print("")
+        }
+    }
+    
+    /** Function that creates a countdown
+     */
+    private func countDown() {
+        for i in 1...3{
+            sleep(1)
+            print(4-i)
+            print("")
+        }
+        sleep(1)
+        print("Go !!")
+        print("************************************************************")
+    }
+    
     /**
      Function that creates two teams
      # Important Notes #
@@ -91,7 +153,7 @@ class Game {
         print("Here is the team 2:")
         let team2 = createTeam()
         
-        // test if numberOfWizard = 3
+        // test if numberOfWizard = 3 in team2
         onlyWizardsInTeam(team : team2)
         
         print("************************************************************")
@@ -100,60 +162,6 @@ class Game {
         appendTeam(team: team2)
     }
     
-    /**
-     Function that appends the Team name into listOfTeamName and the Team into listOfTeam
-     - Parameter team : The team that has to be appended into the 2 arrays
-     */
-    private func appendTeam(team : Team) {
-        // Adds the team to list of team and name of the team to the list of teamNames to enable tests for unique names
-        listOfTeamName.append(team.teamName)
-        listOfTeam.append(team)
-        pauseTapKeyboard()
-    }
-    
-    /**
-     Function that checks if the Team is composed with only Wizards
-     - Parameter team : The team that has to be checked
-     */
-    private func onlyWizardsInTeam(team : Team){
-        var numberOfWizard = 0
-        for fighter in team.teamMembers{
-            if fighter.isAWizard {
-                numberOfWizard += 1
-            }
-        }
-        if numberOfWizard == 3 {
-            print("You can not have a team with only Wizards. Restart in 3 seconds")
-            countDown()
-            game = Game()
-        }
-        
-    }
-    /** Function that prints a welcome message at begining of the game
-     */
-    private func welcomeMessage() {
-        print("""
-        ************************************************************
-        Welcome to this brand new game.
-        Be ready to fight !!
-        Build a team and choose your best fighters to win the game!
-        Are you ready? Yes ?
-        ************************************************************
-        """)
-    }
-    
-    /** Function that creates a countdown
-     */
-    private func countDown() {
-        for i in 1...3{
-            sleep(1)
-            print(4-i)
-            print("")
-        }
-        sleep(1)
-        print("Go !!")
-        print("************************************************************")
-    }
     
     /**
      Function that creates a Team with 3 Fighters
@@ -207,7 +215,7 @@ class Game {
         print("")
         var nameMember = ""
         
-        // Gets the name of the Fighter from user - check if name is unique
+        // Gets the name of the Fighter from user - checks if name is unique
         repeat{
             print("What is the name of your new member?")
             if let name = readLine(){
@@ -219,7 +227,7 @@ class Game {
         // creates the Fighter
         var newFighter = Fighter(fighterName: nameMember)
         
-        // adds the name of the Fighter to the listOfFighterName
+        // adds the Fighter's name to the listOfFighterName
         listOfFighterName.append(nameMember)
         
         // Gets the kind of character from user
@@ -254,6 +262,42 @@ class Game {
         // returns the Fighter created with character type
         return newFighter
     }
+    
+    /**
+     Function that appends the Team name into listOfTeamName and the Team into listOfTeam
+     - Parameter team : The team that has to be appended into the 2 arrays
+     */
+    private func appendTeam(team : Team) {
+        // Adds the team to list of team and Team's name to the list of teamNames to enable tests for unique names
+        listOfTeamName.append(team.teamName)
+        listOfTeam.append(team)
+        pauseTapKeyboard()
+    }
+    
+    /**
+     Function that checks if the Team is composed with only Wizards
+     - Parameter team : The team that has to be checked out
+     */
+    private func onlyWizardsInTeam(team : Team){
+        var numberOfWizard = 0
+        // counts the number of Wizards in the Team
+        for fighter in team.teamMembers{
+            if fighter.isAWizard {
+                numberOfWizard += 1
+            }
+        }
+        // Restart the game if only Wizards in the Team
+        if numberOfWizard == 3 {
+            print("You can not have a team with only Wizards. Restart in 3 seconds")
+            countDown()
+            game = Game()
+        }
+        
+    }
+    
+ 
+
+    
     /**
      Function that processes an attack or a healing cycle
      
@@ -268,17 +312,18 @@ class Game {
     private func attack(){
         
         
-        // event before attack cycle
+        // event before attack cycle - appears from day 2 only
         if day > 0 {
             print("***********************************************************************")
             print("Day \(day+1)")
-            /// variable to check if specific event occurs
+            /// variable to check if specific event occurs : 1 chance out of 4
             let event = Int.random(in: 1...4)
             if event == 4 {
+                // functions that launches the event cycle
                 eventHasOccured()
                 
             } else {
-                
+                // Message if no event
                 print("The night was calm, nothing happened")
                 print("***********************************************************************")
             }
@@ -287,7 +332,7 @@ class Game {
         // Increment day value
         day += 1
         
-        // for loop with elements from listOfTeam
+        // for loop with elements from listOfTeam : team1 attacks first then team2 attacks
         for i in 0...1 {
             pauseTapKeyboard()
             
@@ -305,19 +350,21 @@ class Game {
             print("")
             pauseTapKeyboard()
             
+            // Player is asked to choose a Fighter for the attack
             let attacking = chooseFighterForAttack(ofTeamAttacker: ( i == 1 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
-            
-            
-            
+           
             // Here : let a test to see if Wizard is chosen
             // do the following block of code if Wizard is chosen
             if attacking.isAWizard {
-                // do something mister Wizard
+                // Message to ask player to choose a Fighter for the healing cycle
                 print("You have choosen a Wizard. Who do you want to heal?")
                 let fighterToHeal = chooseFighterForAttack(ofTeamAttacker: ( i == 1 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
+                // Message to show the Fighter that will be healed
                 print("Here is the fighter to be healed by the Wizard!!!")
                 print(fighterToHeal.description())
+                // The Fighter is cured : fighterLife * 1,5 with max fighterMaxLife
                 fighterToHeal.fighterLife = min(Int(Double(fighterToHeal.fighterLife) * 1.5), fighterToHeal.fighterMaxLife)
+                //
                 print("Here is the fighter healed by the Wizard!!!")
                 print(fighterToHeal.description())
             }
@@ -630,16 +677,7 @@ class Game {
         
         return chosenFighter
     }
-    
-    private func pauseTapKeyboard(){
-        for _ in 1...3{
-            print("")
-        }
-        print("Tap enter key to continue")
-        if readLine() != nil {
-            print("")
-        }
-    }
+
     
     //
     private func anotherGameMaybe(){

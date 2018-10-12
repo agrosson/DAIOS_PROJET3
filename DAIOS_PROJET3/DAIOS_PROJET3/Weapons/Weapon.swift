@@ -9,7 +9,7 @@
 import Foundation
 
 /**
- This class set features of a Weapon
+ This class sets features of a Weapon
 
  3 variables and initial values:
  1. weaponName
