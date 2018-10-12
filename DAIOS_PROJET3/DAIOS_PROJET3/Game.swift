@@ -39,7 +39,7 @@ class Game {
     /// Array that lists all the Weapons available in the Game
     private let listOfWeapon = [Sword(),Axe(),Knife(),Arrow(),Filter(), None()]
     /// Variable that tracks the index of the Fighter in the TeamMembers
-    private var indexOfAttacked = 0
+    private var indexOfFighter = 0
     /// Variable that tracks if game is over
     private var gameOver = false
     /// Variable used as a factor that increases or decreases damages of a Weapon depending on both NatureType of Weapon and Fighter
@@ -295,9 +295,6 @@ class Game {
         
     }
     
- 
-
-    
     /**
      Function that processes an attack or a healing cycle
      
@@ -310,7 +307,6 @@ class Game {
      3. If only Wizards left in Team : End of game
      */
     private func attack(){
-        
         
         // event before attack cycle - appears from day 2 only
         if day > 0 {
@@ -329,6 +325,7 @@ class Game {
             }
             
         }
+        
         // Increment day value
         day += 1
         
@@ -352,9 +349,9 @@ class Game {
             
             // Player is asked to choose a Fighter for the attack
             let attacking = chooseFighterForAttack(ofTeamAttacker: ( i == 1 ? 1 : 0), teamNameForAction: ( i == 1 ? 1 : 0))
-           
-            // Here : let a test to see if Wizard is chosen
-            // do the following block of code if Wizard is chosen
+            
+            
+            // Wizard is chosen : do the following block of code
             if attacking.isAWizard {
                 // Message to ask player to choose a Fighter for the healing cycle
                 print("You have choosen a Wizard. Who do you want to heal?")
@@ -368,14 +365,19 @@ class Game {
                 print("Here is the fighter healed by the Wizard!!!")
                 print(fighterToHeal.description())
             }
+                
+                // The Fighter chosen is not a Wizard - do the following block of code
             else {
                 for _ in 1...3{
                     print("")
                 }
+                // Message to indicate to player who attacks
                 print("Here is the Attacker !!!")
                 print(attacking.description())
                 print("************************************************************")
                 pauseTapKeyboard()
+                
+                // Message to ask player to choose opponent
                 print("************************************************************")
                 print("Now chose your opponent !!")
                 // teamNameForAction is turn into ( i == 1 ? 1 : 0)) because it is the attacker that is choosing the opponent from the opponent team ( i == 0 ? 1 : 0)
@@ -383,6 +385,7 @@ class Game {
                 for _ in 1...3{
                     print("")
                 }
+                // Message to indicate to player who is attacked
                 print("Here is the Attacked fighter !!!")
                 print(attacked.description())
                 print("************************************************************")
@@ -391,21 +394,24 @@ class Game {
                     print("The fight is on !!!")
                 }
                 pauseTapKeyboard()
+                
+                // The Fighter gets a random Weapon from the trunck
                 print("************************************************************")
                 print("The fighter is openning a trunck to get (or not) a new weapon!!")
-               
+                
                 // random weapon
                 let randomWeapon = listOfWeapon.randomElement()
                 for _ in 1...3{
                     print("")
                 }
+                
+                // Message to indicate which Weapon has been found in the trunck
                 print("The attacker gets a \(randomWeapon!.weaponName) from the trunck")
                 print("************************************************************")
                 pauseTapKeyboard()
                 print("************************************************************")
                 
                 // calculate the coefDamage: damage * 2 if same NatureType
-                
                 if randomWeapon!.weaponNatureType == attacking.fighterNatureType {
                     coefDamage *= 2
                     print("Outch !! \(attacking.fighterName) knows the weapon very well !!"
@@ -413,32 +419,36 @@ class Game {
                 }
                 
                 attacking.fighterWeapon = randomWeapon!
+                
+                // Message to indicate the level of damages
                 print("")
                 print("Damages caused by Weapon: \(coefDamage * attacking.fighterWeapon.damage)")
                 sleep(2)
                 print("")
                 print("************************************************************")
                 print("")
+                
                 // check if attacking has animals
-                    if attacking.fighterAnimal.count > 0 {
+                if attacking.fighterAnimal.count > 0 {
                     print("Outch !! \(attacking.fighterName) has \(attacking.fighterAnimal.count) " + (attacking.fighterAnimal.count > 1 ? "animals" : "animal"))
                     print("Hard time for its opponent !!")
-                        for animal in attacking.fighterAnimal {
-                            // Double if Fighter and animal have same NatureType
-                            if animal.weaponTypeNature == attacking.fighterNatureType {
-                                totalDamageAnimalDuringFight += animal.animalDamage
-                            }
+                    for animal in attacking.fighterAnimal {
+                        // Double if Fighter and animal have same NatureType
+                        if animal.weaponTypeNature == attacking.fighterNatureType {
                             totalDamageAnimalDuringFight += animal.animalDamage
-                            // decrease for 1 the number
-                            animal.numberOfFight -= 1
                         }
-                        print("")
-                        print("Damages caused by animals: \(totalDamageAnimalDuringFight)")
-                        print("")
+                        totalDamageAnimalDuringFight += animal.animalDamage
+                        // decrease for 1 the number of fight for the animal
+                        animal.numberOfFight -= 1
                     }
-                    
-               
-                // calculate impact of attack
+                    print("")
+                    // Message to indicate the level of damages from animal
+                    print("Damages caused by animals: \(totalDamageAnimalDuringFight)")
+                    print("")
+                }
+                
+                
+                // calculate impact of attacks (weapon and animal)
                 attacked.fighterLife = max(attacked.fighterLife - (coefDamage * attacking.fighterWeapon.damage) - totalDamageAnimalDuringFight, 0)
                 
                 // Set coefDamage back to 1
@@ -448,11 +458,11 @@ class Game {
                 
                 // remove animal from fighterAnimal if numberOfFight = 0
                 removeAnimal(fighter: attacking)
-                    
+                
                 // Test on fighterLife : dead (remove from team) and is the game over?
                 if attacked.fighterLife < 1 {
                     print("Oh my Good !! \(attacked.fighterName) is dead !!")
-                    listOfTeam[( i == 0 ? 1 : 0)].teamMembers.remove(at: indexOfAttacked)
+                    listOfTeam[( i == 0 ? 1 : 0)].teamMembers.remove(at: indexOfFighter)
                     
                     // Count how many Wizards in the team
                     var countWizard = 0
@@ -481,21 +491,16 @@ class Game {
                         break
                     }
                 }
+                // Final message to display the attacked Fighter's decription after the fight if he is still alive
                 print("Here are the damages on the attacked fighter: ")
                 print(attacked.description())
-                
             }
-            }
-        
+        }
     }
-    // First player choose its opponent
-    // random trunck
-    // bonus : send animal if any
-    // attack
-    // Sum up
     
     /**
     Function that removes an animal from array fighterAnimal of a Fighter when numberOFight of Animal is 0
+    - Parameter fighter : The Fighter that looses its animal (animal is gone when having fought 3 times)
     */
     private func removeAnimal(fighter: Fighter) {
         var trackIndex = [Int]()
@@ -515,19 +520,24 @@ class Game {
     private func eventHasOccured(){
         
         print("this is an event")
+        // The variable is used to choose the event that will occur
         let indexOfEvent = Int.random(in: 1...4)
+        // Variable that tracks the team impacted by the event
         let indexTeamForEvent = Int.random(in: 0...1)
+        // Variable that tracks the team not impacted by the event
         let indexSecondTeam = indexTeamForEvent == 0 ? 1 : 0
         let teamForEvent = listOfTeam[indexTeamForEvent]
         let secondTeam = listOfTeam[indexSecondTeam]
+        // Variable that tracks the Fighter impacted by event
         let fighterIndex = Int.random(in: 0..<teamForEvent.teamMembers.count)
         
+        // Random choice of event with variable indexOfEvent
         switch indexOfEvent {
         case 1: food(team: teamForEvent)
         case 2: storm(team: teamForEvent)
-        // case 3: findAnimal(team: teamForEvent, index: fighterIndex)
+        // case 3: A Wizard can not have an animal because Wizard doesn't fight
         case 3: teamForEvent.teamMembers[fighterIndex].isAWizard ? print("The Wizard missed to catch an animal") : findAnimal(team: teamForEvent, index: fighterIndex)
-            // Team Should have at least two members of betray event
+        // Team Should have at least two members of betray event
         case 4: teamForEvent.teamMembers.count == 1 ? print(" Team \(teamForEvent.teamName) has nearly stepped down but found energy to go back to fight !") : betray(teamBetrayed: teamForEvent, indexTraitor: fighterIndex, newTeam: secondTeam)
             
         default:
@@ -536,12 +546,15 @@ class Game {
         
         
     }
+    
     /**
-     Function that increases life for all Fighter of a given Team
+     Function that increases life for all Fighters of a given Team
+     - Parameter team : The team that gets the food
      */
+    
     private func food(team : Team) {
-        // to do: code for food
-        
+ 
+        // Message to describe event
         print("Lucky Team \(team.teamName) !! You have found food and medicine during the night. Every fighter is feeling better now")
         sleep(2)
         print("***********")
@@ -549,6 +562,7 @@ class Game {
         print(team.presentation())
         print("***********")
         print("After event")
+        // Add life to all members of the team
         for fighter in team.teamMembers{
             fighter.fighterLife = min(fighter.fighterMaxLife, fighter.fighterLife + 20)
         }
@@ -557,7 +571,8 @@ class Game {
     }
     
     /**
-     Function that decreases life for all Fighter of a given Team
+     Function that decreases life for all Fighters of a given Team
+      - Parameter team : The team that is impacted by the storm
      */
     private func storm(team : Team) {
     
@@ -568,18 +583,21 @@ class Game {
         print(team.presentation())
         print("***********")
         print("After event")
+        // a Fighter can not die because of the storm, so at least keeps 1)
         for fighter in team.teamMembers{
-            fighter.fighterLife = max(fighter.fighterLife/2, fighter.fighterLife - 15)
+            fighter.fighterLife = max(1, fighter.fighterLife - 15)
         }
         print(team.presentation())
         print("***********************************************************************")
     }
     
     /**
-     Function that adds an animal to one Fighter of a given Team
+     Function that creates and adds an animal to Fighter of a given Team
+      - Parameter team : The team that gets an animal
+      - Parameter index : The Fighter of team that gets an animal
      */
     private func findAnimal(team : Team, index: Int) {
-        // to do: code for findAnimal
+        // Random type of animal
         let indexAnimal = Int.random(in: 1...5)
         var animalFoundType: AnimalType = .dog
         switch indexAnimal {
@@ -592,7 +610,7 @@ class Game {
             print("error in findAnimal event")
         }
         
-        
+        // Creates an animal
         var animalFoundName = ""
         repeat{
             
@@ -606,7 +624,7 @@ class Game {
         let animalFound = Animal(animalName: animalFoundName, animalType: animalFoundType)
         
         
-        
+        // Adds animal to the Fighter list of animal
         print("Lucky Team \(team.teamName) !! \(team.teamMembers[index].fighterName) has found an animal")
         sleep(2)
         print("***********")
@@ -623,11 +641,14 @@ class Game {
     
     /**
      Function that removes one Fighter from a given Team and adds this Fighter to the other Team
+     - Parameter teamBetrayed : The team that is betrayed
+     - Parameter indexTraitor : The Fighter traitor
+     - Parameter newTeam : The traitor's new team
      */
     private func betray(teamBetrayed : Team, indexTraitor: Int, newTeam: Team) {
-        // to do: code for betrayal
         print("***********************************************************************")
         let traitor = teamBetrayed.teamMembers[indexTraitor]
+        // remove traitor from current team
         teamBetrayed.teamMembers.remove(at: indexTraitor)
         var countLeftMembers = 0
         
@@ -637,11 +658,14 @@ class Game {
                 countLeftMembers += 1
             }
         }
+        // the traitor stays in its team is true
         if countLeftMembers == teamBetrayed.teamMembers.count {
             print(" Team \(teamBetrayed.teamName) has nearly stepped down but found energy to go back to fight !")
             // the traitor goes back to its team
             teamBetrayed.teamMembers.append(traitor)
-        } else {
+        }
+        // the traitor moves from current team to second team
+        else {
             print("This is crazy !! \(traitor.fighterName) has betrayed and left Team \(teamBetrayed.teamName) to join Team \(newTeam.teamName)")
             newTeam.teamMembers.append(traitor)
         }
@@ -673,13 +697,15 @@ class Game {
         } while !listOfChoice.contains(choice)
         
         chosenFighter = listOfTeam[ofTeamAttacker].teamMembers[Int(choice)!-1]
-        indexOfAttacked = Int(choice)!-1
+        indexOfFighter = Int(choice)!-1
         
         return chosenFighter
     }
 
     
-    //
+    /**
+     Function that proposes to restart or exit the game
+     */
     private func anotherGameMaybe(){
         var newGame = ""
         repeat{
@@ -698,11 +724,4 @@ class Game {
         default: break
         }
     }
-    
-    // to be created: an event between a attack cycle
-    // catch an animal : add to list animal
-    // betrayal : change team if not alone in the team
-    // storm: remove lives
-    // food : add lives +10
-    // drugs : add lives +20 
 }
