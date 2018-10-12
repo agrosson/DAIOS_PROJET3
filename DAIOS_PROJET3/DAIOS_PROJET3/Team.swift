@@ -34,6 +34,7 @@ class Team {
             return total}
        
     }
+    
     /**
      Function that initializes Team
      - Parameter name: Team's name
@@ -41,6 +42,7 @@ class Team {
     init(name : String){
         teamName = name
     }
+    
     /**
      Function that describes Team's features
      - Returns: Text (String) which is a description of main Team's features

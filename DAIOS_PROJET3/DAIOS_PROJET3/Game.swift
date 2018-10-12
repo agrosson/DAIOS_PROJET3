@@ -57,8 +57,19 @@ class Game {
         gameStart()
     }
     
-    /** Function that launches the game with execution of several other functions
+    /**
+     Function that launches the game and executes functions to process the game
+     
+     # Important Notes #
+     The sequence is the following
+        1. welcomeMessage()
+        2. countDown()
+        3. teamCreationCycle()
+        4. repeat/while loop for attack() until game ends
+        5. anotherGameMaybe()
+     
      */
+    
     private func gameStart() {
         
         // Prints a welcome message and make a pause
@@ -299,12 +310,14 @@ class Game {
      Function that processes an attack or a healing cycle
      
      # Important Notes #
+     - An event could occur from day 2
      - Control flow ( i == 1 ? 1 : 0) is used to switch from one team to another within the loop for i in 0...1
      - Healing cycle is processed when Wizard type of Fighter is chosen
-     - Attack cycle is processed when another type of Fighter is chosen:
-     1. If fighterLife < 1 : Fighter is dead and is removed from Team
-     2. If no member left in Team : End of game
-     3. If only Wizards left in Team : End of game
+     - Attack cycle is processed when another type of Fighter is chosen
+      # End of game test #
+     If fighterLife < 1 : Fighter is dead and is removed from Team :
+     1. If no member left in Team : End of game
+     2. If only Wizards left in Team : End of game
      */
     private func attack(){
         

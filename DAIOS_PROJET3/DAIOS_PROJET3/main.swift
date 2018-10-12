@@ -7,5 +7,10 @@
 //
 import Foundation
 
+/*
+The file main is only used to launch the game by creating an instance of Game
+ */
+
+/// Instance of Game
 var game = Game()
 
