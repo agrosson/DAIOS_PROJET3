@@ -58,6 +58,7 @@ class Fighter {
         return "My name is \(fighterName)"
             + "\n  1. My life level:" + ( fighterLife == 0 ? " \(fighterLife), I am dead! See you in Heaven !!" : " \(fighterLife)")
             + "\n  2. I have got \(fighterAnimal.count) " + (fighterAnimal.count > 1 ? "animals" : "animal")
+            + "\n"
     }
     /**
      Function that describes name and type of  Fighter
