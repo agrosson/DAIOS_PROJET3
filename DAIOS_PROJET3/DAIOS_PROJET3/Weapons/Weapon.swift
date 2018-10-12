@@ -8,9 +8,6 @@
 
 import Foundation
 
-//======================
-// MARK: - CLASS WEAPON
-//======================
 /**
  This class set features of a Weapon
 
@@ -21,10 +18,10 @@ import Foundation
  */
 
 class Weapon {
-    /// Variable that indicates the name of the Weapon
+    /// Variable that indicates Weapon's name - initialized with empty String
     var weaponName = ""
-    /// Variable that sets the level of damage made by the Weapon
+    /// Variable that sets the level of damage made by the Weapon - initialized with 0
     var damage = 0
-    /// Optional that sets the NatureType of the Weapon
+    /// Optional that sets the Weapon's NatureType
     var weaponNatureType: NatureType?
 }

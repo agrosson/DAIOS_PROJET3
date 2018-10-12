@@ -8,18 +8,18 @@
 
 import Foundation
 
-//======================
-// MARK: - SUBCLASS OF WEAPON
-//======================
 /**
  This class is a subclass of Weapon
 
- - Initialize the variables for Arrow object:
+ - Initializes the variables for Arrow object:
  1. weaponName
  2. damage
  3. weaponNatureType
  */
 class Arrow: Weapon {
+    /**
+     Function that initializes Arrow with specific initial values
+     */
     override init() {
         super.init()
         weaponName = "Arrow"

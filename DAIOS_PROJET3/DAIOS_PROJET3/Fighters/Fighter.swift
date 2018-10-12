@@ -8,11 +8,9 @@
 
 import Foundation
 
-//======================
-// MARK: - CLASS FIGHTER
-//======================
+
 /**
- This class set features of a Fighter
+ This class set Fighter's features
  
  7 variables and initial values:
  1. fighterName

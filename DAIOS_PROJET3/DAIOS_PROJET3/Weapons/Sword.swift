@@ -1,5 +1,5 @@
 //
-//  Filter.swift
+//  Sword.swift
 //  DAIOS_PROJET3
 //
 //  Created by ALEXANDRE GROSSON on 05/10/2018.
@@ -8,22 +8,23 @@
 
 import Foundation
 
-//======================
-// MARK: - SUBCLASS OF WEAPON
-//======================
 /**
  This class is a subclass of Weapon
  
- - Initialize the variables for Filter object:
+ - Initializes the variables for Sword object:
  1. weaponName
  2. damage
  3. weaponNatureType
  */
-class Filter: Weapon {
+
+class Sword: Weapon {
+    /**
+     Function that initializes Sword with specific initial values
+     */
     override init() {
         super.init()
-        weaponName = "Filter"
-        damage = 30
-        weaponNatureType = .water
+        weaponName = "Sword"
+        damage = 13
+        weaponNatureType = .earth
     }
 }

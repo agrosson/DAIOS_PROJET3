@@ -8,18 +8,18 @@
 
 import Foundation
 
-//======================
-// MARK: - SUBCLASS OF WEAPON
-//======================
 /**
  This class is a subclass of Weapon
  
- - Initialize the variables for Knife object:
+ - Initializes the variables for Knife object:
  1. weaponName
  2. damage
  3. weaponNatureType
  */
 class Knife: Weapon {
+    /**
+     Function that initializes Knife with specific initial values
+     */
     override init() {
         super.init()
         weaponName = "Knife"
