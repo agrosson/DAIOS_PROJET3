@@ -26,24 +26,24 @@ Function
  - lightDescription()
  */
 class Fighter {
-    /// Variable that indicates the name of the Fighter
+    /// Variable that indicates the Fighter's name
     var fighterName: String
     /// Variable that sets the maximum of level of life for the Fighter
     var fighterMaxLife = 100
-    /// Variable that tracks the current level of life of the Fighter
+    /// Variable that tracks the current level of Fighter's life
     var fighterLife = 0
     /// Array that lists the Animals held by the Fighter
     var fighterAnimal = [Animal]()
     /// Variable that tracks the Weapon held by the Fighter
     var fighterWeapon:Weapon = None()
-    /// Variable that tracks the NatureType of the Fighter
+    /// Variable that tracks the Fighter's NatureType
     var fighterNatureType:NatureType?
     /// Boolean that indicates if Fighter is a type of Wizard Fighter
     var isAWizard = false
     
     /**
      Function that initializes Fighter
-     - Parameter fighterName: Name of the Fighter
+     - Parameter fighterName: Fighter's name
      */
 
     init(fighterName: String){
@@ -70,7 +70,7 @@ class Fighter {
 
 
 /**
- Enum that lists the 3 NatureType possible for Fighter, Weapons and Animals
+ Enum that lists the 3 NatureType available for Fighter, Weapons and Animals
  */
 enum NatureType: String {
     case earth = "Earth"

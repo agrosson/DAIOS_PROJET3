@@ -8,9 +8,9 @@
 
 import Foundation
 
-//======================
-// MARK: - SUBCLASS OF FIGHTER
-//======================
+/**
+ This class is a subclass of Fighter
+ */
 
 class Soldier: Fighter {
     

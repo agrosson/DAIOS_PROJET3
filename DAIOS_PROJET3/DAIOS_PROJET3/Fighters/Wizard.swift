@@ -8,17 +8,18 @@
 
 import Foundation
 
-//======================
-// MARK: - SUBCLASS OF FIGHTER
-//======================
+/**
+ This class is a subclass of Fighter
+ */
 
 class Wizard: Fighter {
+    
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         isAWizard = true
         fighterMaxLife = 100
         fighterLife = fighterMaxLife
-        // fighterWeapon = Potion() à créer
+        // Wizard has no Weapon
         fighterNatureType = .water
         
     }

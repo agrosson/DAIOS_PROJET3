@@ -8,11 +8,12 @@
 
 import Foundation
 
-//======================
-// MARK: - SUBCLASS OF FIGHTER
-//======================
+/**
+ This class is a subclass of Fighter
+ */
 
 class Dwarf: Fighter {
+    
     override init(fighterName: String) {
         super.init(fighterName: fighterName)
         fighterMaxLife = 80
