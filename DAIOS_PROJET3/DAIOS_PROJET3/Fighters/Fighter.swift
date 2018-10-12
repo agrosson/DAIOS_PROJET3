@@ -10,7 +10,7 @@ import Foundation
 
 
 /**
- This class set Fighter's features
+ This class sets Fighter's features
  
  7 variables and initial values:
  1. fighterName

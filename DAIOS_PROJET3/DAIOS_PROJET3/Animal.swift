@@ -8,12 +8,20 @@
 
 import Foundation
 
+/**
+ This class sets Animal's features
+ 
+ 4 variables and initial values:
+ 1. animalName
+ 2. animalType
+ 3. weaponTypeNature
+ 4. animalDamage
+ 5. numberOfFight
+ 
+ */
 
-//======================
-// MARK: Class animal
-//======================
 class Animal {
-    /// Name of the Animal
+    /// Animal's name
     var animalName: String
     /// AnimalType of the Animal
     var animalType: AnimalType
@@ -26,6 +34,11 @@ class Animal {
     /// Variable that tracks the number of fights the animal can do
     var numberOfFight = 3
     
+    /**
+     Function that initializes Animal
+     - Parameter animalName: Animal's name
+     - Parameter animalType: AnimalType of the Animal
+     */
     init(animalName: String, animalType : AnimalType) {
         self.animalName = animalName
         self.animalType = animalType
@@ -38,15 +51,13 @@ class Animal {
         }
     }
 }
-//======================
-// MARK: Enum AnimalType
-//======================
+
 /**
  Enumeration lists animalType and damages as raw Values
  
   `This enumeration:`
  - lists the animalTypes
- - mesures the additionnal damage caused during the attack if you have a animal, using raw values
+ - mesures the additionnal damages caused during the attack if you have a animal, using raw values
  */
  enum AnimalType: Int {
     case dog = 10
