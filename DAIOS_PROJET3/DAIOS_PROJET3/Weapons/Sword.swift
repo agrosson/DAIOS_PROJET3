@@ -24,7 +24,7 @@ class Sword: Weapon {
     override init() {
         super.init()
         weaponName = "Sword"
-        damage = 13
+        damage = 10
         weaponNatureType = .earth
     }
 }
